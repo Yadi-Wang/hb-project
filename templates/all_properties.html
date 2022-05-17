@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}All Properties{% endblock %}
+
+{% block body %}
+  <h1>All Properties</h1>
+
+  <ul>
+    {% for theproperty in properties %}
+      <li>
+        <a href="/properties/{{theproperty.property_id}}">
+          {{ theproperty.address}}
+        </a>
+      </li>
+      <button id="like-button">Like me!</button>
+    {% endfor %}
+  </ul>
+  
+  <script src="static/js/myfavorites.js">
+    
+  </script>
+{% endblock %}

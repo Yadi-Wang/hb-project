@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}About this Home{% endblock %}
+
+{% block body %}
+<h1>${{ property_details.price}}</h1>
+<p>
+  {{ address_details.line}},<br>
+  {{ address_details.city}}
+  {{ address_details.state_code}}
+  {{ address_details.postal_code}} <br>
+  {{ address_details.lat}}
+  {{ address_details.lon}} <br>
+  {{ property_details.prop_type}} <br>
+  {{ property_details.beds}} Beds<br>
+  {{ property_details.baths_full}} Baths<br>
+  {{ property_details.building_size['size']}} sqft<br>
+
+</p>
+<h1>See on the map!</h1>
+<div>google map!</div>
+
+<h1>Key Feature!</h1>
+Status {{ property_details.prop_status}} <br>
+Lot Size {{ property_details.lot_size['size']}} sqft <br>
+
+<h1>See below!</h1>
+
+{% if property_details.description %}
+  <p>{{property_details.description}}</p>
+{% endif %}
+
+<p>more details coming soon!</p>
+
+
+<h1>Photos</h1>
+<div class="gallery">
+  <ul>
+  {% for photo in photos %}
+    <li><img class="images" src= {{photo.href}}/></li>
+  {% endfor %}
+  </ul>
+</div>
+
+<h1>School information</h1>
+<div class="school">
+  <ul>
+  {% for school in schools %}
+    <li>{{school.name}}, {{school.ratings["great_schools_rating"]}}</li>
+  {% endfor %}
+  </ul>
+</div>
+  
+
+{% endblock %}

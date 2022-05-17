@@ -1,1 +1,1 @@
-export SECRET_KEY="thisisthefirstprojecttobeasoftwareengineer"
+export SECRET_KEY="dfhi7ip\=6isfhklk;rthw"

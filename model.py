@@ -1,5 +1,6 @@
-"""Models for movie ratings app."""
+"""Models for house searching app."""
 
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -13,57 +14,71 @@ class User(db.Model):
     user_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
+    # last_name = db.Column(db.String)
+    # first_name = db.Column(db.String)
+    # created_at = db.Column(db.DateTime)
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
-    # ratings = a list of Rating objects
+    # likes = db.relationship("Like", backref="user")
+
     
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 
-        
-class Movie(db.Model):
-    """A user."""
 
-    __tablename__ = 'movies'
+class Listing(db.Model):
+    """A listing."""
 
-    movie_id = db.Column(db.Integer,
+    __tablename__ = 'listings'
+
+    listing_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
-    title = db.Column(db.String, unique=True)
-    overview = db.Column(db.Text)
-    release_date = db.Column(db.DateTime)
-    poster_path = db.Column(db.String)
-
-    # ratings = a list of Rating objects
-
-    def __repr__(self):
-        return f'<Movie movie_id={self.movie_id} title={self.title}>'
+    property_id = db.Column(db.Integer)
+    
 
 
-class Rating(db.Model):
-    """Rating for a movie."""
+class Like(db.Model):
+    """A property."""
 
-    __tablename__ = 'ratings'
+    __tablename__ = 'likes'
 
-    rating_id = db.Column(db.Integer,
+    like_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
-    score = db.Column(db.Integer)
-    movie_id = db.Column(db.Integer, db.ForeignKey("movies.movie_id"))
+    listing_id = db.Column(db.Integer, db.ForeignKey("listings.listing_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     
-    movie = db.relationship("Movie", backref="ratings")
-    user = db.relationship("User", backref="ratings")
-
+    user = db.relationship("User", backref="likes")
+    listing = db.relationship("Listing", backref="likes")
+    
     def __repr__(self):
-        return f'<Rating rating_id={self.rating_id} score={self.score}>'
+        return f'<LIke like_id={self.like_id} listing_id={self.listing_id}>'
+
+
+# class Property(db.Model):
+#     """Listings for a property."""
+
+#     __tablename__ = 'properties'
+
+#     property_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True,)
+#     address = db.Column(db.text)
+#     price = db.Column(db.Integer)
+#     size = db.Column(db.Integer)
+#     date_lis = db.Column(db.datetime)
+
+
+#     def __repr__(self):
+#         return f'<Property property_id={self.property_id}>'
 
 
 
 
 
-def connect_to_db(flask_app, db_uri="postgresql:///ratings", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///housing", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

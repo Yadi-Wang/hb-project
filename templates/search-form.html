@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}Find Properties{% endblock %}
+
+{% block body %}
+  <h1>Search for Properties</h1>
+  <form method="GET" action="/properties/search">
+    <div class="row">
+      <label class="form-label above" for="search-keyword">Search Keyword</label>
+      <small class="form-text text-muted">
+        Leave this blank to get all properties!
+      </small>
+
+      <input
+        id="search-keyword"
+        class="form-control"
+        type="text"
+        name="keyword"
+      >
+    </div>
+
+    <div class="row">
+      <label class="form-label above" for="search-state">State</label>
+
+      <input
+        id="search-state"
+        class="form-control"
+        type="text"
+        name="state"
+      >
+    </div>
+
+    <div class="row">
+      <label class="form-label above" for="search-city">City</label>
+
+      <input
+        id="search-city"
+        class="form-control"
+        type="text"
+        name="city"
+      >
+    </div>
+
+    <div class="row">
+      <label class="form-label above" for="search-zip">Zipcode</label>
+
+      <input
+        id="search-zip"
+        class="form-control"
+        type="text"
+        name="zipcode"
+      >
+    </div>
+
+    <div class="row">
+      <label class="form-label above" for="search-proptype">Property Type</label>
+
+      <input
+        id="search-proptype"
+        class="form-control"
+        type="checkbox"
+        name="proptype"
+        value="single_family">
+      <label>Single-Family</label>
+
+      <input
+        id="search-proptype"
+        class="form-control"
+        type="checkbox"
+        name="proptype"
+        value="condo">
+      <label>Townhouse/Condo</label>
+
+      <input
+        id="search-proptype"
+        class="form-control"
+        type="checkbox"
+        name="proptype"
+        value="multi_family">
+      <label>Multi_Family</label>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-3">
+        <input type="submit" value="Look for your home!" class="btn btn-primary">
+      </div>
+    </div>
+  </form>
+
+  
+{% endblock %}

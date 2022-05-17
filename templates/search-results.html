@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Homes!!!{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a href="/properties" class="lead backlink">
+          Go back to the search form
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        
+        <div>
+          <h2>Home Search Results</h2>
+
+          <p>
+            <span id="result-count">
+              {{ search_results['returned_rows']}}
+            </span>
+            Homes matched your search.
+          </p>
+
+          <ul>
+            {% for theproperty in properties_list %}
+              <li class="list-group-item list-group-item-action">
+                <div class="row">
+                  <div class="col-2">
+                    
+                  </div>
+
+                  <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                      <a href="/properties/{{ theproperty['property_id'] }}" target="_blank">
+                        <h5>{{ theproperty['address'] }}, {{ theproperty['price'] }}  </h5>
+
+                      </a>
+                      
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

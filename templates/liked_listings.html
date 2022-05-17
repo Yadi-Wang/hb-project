@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Favorites{% endblock %}
+
+{% block body %}
+  <h1>Here is my future home!</h1>
+
+  <ul>
+    {% for listing in liked_listings %}
+      <li>
+        <a href="/myproperties/{{listing.property_id}}">
+          {{ listing.address}}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
