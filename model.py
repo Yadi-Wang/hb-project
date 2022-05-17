@@ -57,22 +57,22 @@ class Like(db.Model):
         return f'<LIke like_id={self.like_id} listing_id={self.listing_id}>'
 
 
-# class Property(db.Model):
-#     """Listings for a property."""
+class Property(db.Model):
+    """Listings for a property."""
 
-#     __tablename__ = 'properties'
+    __tablename__ = 'properties'
 
-#     property_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True,)
-#     address = db.Column(db.text)
-#     price = db.Column(db.Integer)
-#     size = db.Column(db.Integer)
-#     date_lis = db.Column(db.datetime)
+    property_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True,)
+    address = db.Column(db.String)
+    price = db.Column(db.Integer)
+    size = db.Column(db.Integer)
+    date_lis = db.Column(db.String)
 
 
-#     def __repr__(self):
-#         return f'<Property property_id={self.property_id}>'
+    def __repr__(self):
+        return f'<Property property_id={self.property_id}>'
 
 
 

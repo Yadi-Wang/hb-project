@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Like, Listing, connect_to_db
+from model import db, User, Like, Listing, Property, connect_to_db
 from flask import request
 import requests
 
@@ -32,14 +32,14 @@ def get_user_by_email(email):
 
     
 
-def add_property(property_id):
-    """Create and return a new movie."""
+# def add_property(property_id):
+#     """Create and return a new movie."""
 
-    theproperty = Listing(
-        property_id=property_id,
-    )
+#     theproperty = Listing(
+#         property_id=property_id,
+#     )
 
-    return theproperty
+#     return theproperty
 
 def get_search_properties():
     """Search for properties in a particular area"""
@@ -91,15 +91,22 @@ def get_properties():
 
     return Property.query.all()
 
-def create_like(listing_id, user_id):
-    """Create and return a new movie."""
+def create_properties(address, price, size, date_lis):
 
-    thelike = Like(
-        listing_id=listing_id,
-        user_id=user_id
-    )
+    """Return a new property."""
+    newproperty = Property(address=address, price=price, size=size, date_lis =date_lis)
 
-    return thelike
+    return newproperty
+
+# def create_like(listing_id, user_id):
+#     """Create and return a new movie."""
+
+#     thelike = Like(
+#         listing_id=listing_id,
+#         user_id=user_id
+#     )
+
+#     return thelike
 
 def get_likes_by_user(user_id):
     """Create and return a new movie."""

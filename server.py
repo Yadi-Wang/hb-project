@@ -52,11 +52,11 @@ def add_to_likes():
     return redirect("/myproperties")
 
 
-# @app.route('/allproperties')
-# def get_properties():
-#     """go to properties"""
-#     properties = crud.get_properties()
-#     return render_template("all_properties.html", properties = properties)
+@app.route('/allproperties')
+def get_properties():
+    """go to properties"""
+    properties = crud.get_properties()
+    return render_template("all_properties.html", properties = properties)
 
 @app.route('/properties')
 def search_properties():
