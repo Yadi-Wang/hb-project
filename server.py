@@ -32,24 +32,37 @@ def index():
 def show_my_homepage():
     """show user's homepage"""
 
-    return render_template("myhomepage.html")
+    logged_in_email = session.get("user_email")
+    user = crud.get_user_by_email(logged_in_email)
 
-@app.route('/myproperties')
-def show_my_favorites():
+    return render_template("myhomepage.html", user = user)
+    
+
+@app.route('/<user_id>/myfavorites')
+def show_my_favorites(user_id):
     """show user's liked listings"""
     
-    # liked_properties = crud.get_likes_by_user(user_id)
+    liked_properties = crud.get_likes_by_user(user_id)
     
-    return render_template("myproperties.html")
+    return render_template("myproperties.html", liked_properties=liked_properties)
 
 
-@app.route('/addtofavorites')
-def add_to_likes():
-    like = crud.create_like(listing_id, user_id)
-    db.session.add(like)
-    db.session.commit()
-    flash("You saved it")
-    return redirect("/myproperties")
+@app.route('/add_to_favorites/<property_id>')
+def add_to_favorites(property_id):
+    """Add a favorite property to myfavorites collection"""
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash("You must log in to save a favorite.")
+    
+    else:
+        user = crud.get_user_by_email(logged_in_email)
+        user_id = user.user_id
+        theproperty = crud.get_theproperty_by_id(property_id)
+        like = crud.create_like(theproperty, user)
+        db.session.add(like)
+        db.session.commit()
+    
+    return redirect(f"/{user_id}/myfavorites")
 
 
 @app.route('/allproperties')
@@ -109,9 +122,9 @@ def register_user():
     return redirect("/")
     
 
-@app.route("/welcome")
-def welcome():
-    return render_template("welcome.html")
+# @app.route("/welcome")
+# def welcome():
+#     return render_template("welcome.html")
 
 @app.route("/login", methods=["POST"])
 def process_login():

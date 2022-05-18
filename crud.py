@@ -85,6 +85,10 @@ def get_property_by_id(property_id):
     data = response.json()
     return data
 
+def get_theproperty_by_id(property_id):
+    """Return a property in the list."""
+    
+    return Property.query.filter(Property.property_id == property_id).first()
 
 def get_properties():
     """Return all properties."""
@@ -98,20 +102,19 @@ def create_properties(address, price, size, date_lis):
 
     return newproperty
 
-# def create_like(listing_id, user_id):
-#     """Create and return a new movie."""
+def create_like(theproperty, user):
+    """Create and return a liked property."""
 
-#     thelike = Like(
-#         listing_id=listing_id,
-#         user_id=user_id
-#     )
+    the_favorite_property = Like(
+        theproperty=theproperty,
+        user=user)
 
-#     return thelike
+    return the_favorite_property
 
 def get_likes_by_user(user_id):
     """Create and return a new movie."""
 
-    return Like.query.filter(User.user_id == user_id).all()
+    return Like.query.filter(Like.user_id == user_id).all()
 
 
 

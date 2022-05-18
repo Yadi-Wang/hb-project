@@ -3,11 +3,12 @@
 
 {% block body %}
   <h1>Welcome!{{session["user_email"]}}</h1>
+  
 
   <h2>Navigation</h2>
   <ul>
-    <!-- <li><a href="/allproperties">View all properties</a></li> -->
-    <li><a href="/myproperties">View favorites</a></li>
+    <li><a href="/allproperties">View all properties</a></li>
+    <li><a href="/{{user.user_id}}/myfavorites">View favorites!</a></li>
     <li><a href="/properties">Search your home</a></li>
   </ul>
 

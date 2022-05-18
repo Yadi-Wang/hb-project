@@ -27,18 +27,6 @@ class User(db.Model):
         return f'<User user_id={self.user_id} email={self.email}>'
 
 
-class Listing(db.Model):
-    """A listing."""
-
-    __tablename__ = 'listings'
-
-    listing_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True,)
-    property_id = db.Column(db.Integer)
-    
-
-
 class Like(db.Model):
     """A property."""
 
@@ -47,14 +35,14 @@ class Like(db.Model):
     like_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
-    listing_id = db.Column(db.Integer, db.ForeignKey("listings.listing_id"))
+    property_id = db.Column(db.Integer, db.ForeignKey("properties.property_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     
     user = db.relationship("User", backref="likes")
-    listing = db.relationship("Listing", backref="likes")
+    theproperty = db.relationship("Property", backref="likes")
     
     def __repr__(self):
-        return f'<LIke like_id={self.like_id} listing_id={self.listing_id}>'
+        return f'<LIke like_id={self.like_id} property_id={self.property_id}>'
 
 
 class Property(db.Model):
@@ -74,7 +62,20 @@ class Property(db.Model):
     def __repr__(self):
         return f'<Property property_id={self.property_id}>'
 
+        
 
+class Listing(db.Model):
+    """A listing."""
+
+    __tablename__ = 'listings'
+
+    listing_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True,)
+    property_id = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<Listing listing_id={self.listing_id}>'
 
 
 

@@ -3,14 +3,15 @@
 
 {% block body %}
   <h1>Favorites!</h1>
-  <!-- {% for liked_property in liked_properties %} -->
+
+  {% for each_property in liked_properties %}
   <li>
-    <a>
+      <td>{{each_property.theproperty.address}}</td>
       
-    </a>
   </li>
-
-
   {% endfor %}
 
+  <a class="btn btn-primary" href="/myhomepage">Go back to homepage!</a>
+
 {% endblock %}
+

@@ -11,11 +11,12 @@
           {{ theproperty.address}}
         </a>
       </li>
-      <button id="like-button">Like me!</button>
+      
+      <a class="btn btn-primary" href="/add_to_favorites/{{theproperty.property_id }}">Add to favorites!</a>
     {% endfor %}
   </ul>
   
-  <script src="static/js/myfavorites.js">
+  <!-- <script src="static/js/myfavorites.js"> -->
     
-  </script>
+  <!-- </script> -->
 {% endblock %}
