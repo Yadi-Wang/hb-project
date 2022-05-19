@@ -15,21 +15,21 @@ os.system('createdb housing')
 model.connect_to_db(server.app)
 model.db.create_all()
 
-with open('data/properties50.json') as f:
-    property_data = json.loads(f.read())
+# with open('data/properties50.json') as f:
+#     property_data = json.loads(f.read())
 
-# Create properties, store them in list so we can use them
-# to create fake ratings later
-properties_in_db = []
-for theproperty in property_data:
-    address, price, size = (theproperty["formattedAddress"], theproperty["price"], theproperty["squareFootage"])
-    date_lis = (theproperty["listedDate"])
+# # Create properties, store them in list so we can use them
+# # to create fake ratings later
+# properties_in_db = []
+# for theproperty in property_data:
+#     address, price, size = (theproperty["formattedAddress"], theproperty["price"], theproperty["squareFootage"])
+#     date_lis = (theproperty["listedDate"])
 
-    db_property = crud.create_properties(address, price, size, date_lis)
-    properties_in_db.append(db_property)
+#     db_property = crud.create_properties(address, price, size, date_lis)
+#     properties_in_db.append(db_property)
 
-model.db.session.add_all(properties_in_db)
-model.db.session.commit()
+# model.db.session.add_all(properties_in_db)
+# model.db.session.commit()
 
 
 for n in range(10):

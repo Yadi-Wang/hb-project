@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Like, Listing, Property, connect_to_db
+from model import db, User, Like, Property, connect_to_db
 from flask import request
 import requests
 
@@ -47,7 +47,11 @@ def get_search_properties():
     state = request.args.get('state', '')
     zipcode = request.args.get('zipcode', '')
     proptype = request.args.get('proptype', '')
-   
+    min_bath = request.args.get('min_bath', '')
+    min_bed = request.args.get('min_bed', '')
+    price_max = request.args.get('maxprice', '')
+    sqft_min = request.args.get('sqft_min', '')
+    no_pets_allowed = request.args.get('pets', '')
     
 
     url = "https://realty-in-us.p.rapidapi.com/properties/list-for-rent"
@@ -58,7 +62,12 @@ def get_search_properties():
                    "limit":'100',
                    'sort': 'relevance',
                    'postal_code': zipcode,
-                   'prop_type': proptype}
+                   'prop_type': proptype,
+                   'baths_min': min_bath,
+                   'beds_min': min_bed,
+                   'price_max': price_max,
+                   'sqft_min': sqft_min,
+                   'no_pets_allowed': no_pets_allowed}
     headers = {
     "X-RapidAPI-Host": "realty-in-us.p.rapidapi.com",
 	"X-RapidAPI-Key": "ad06cc1ec2mshf405726e1df988dp12ad4bjsn96ac2fc85cba"}
@@ -70,7 +79,7 @@ def get_search_properties():
     # serach_results is a list of dictionary
     return search_results
 
-def get_property_by_id(property_id):
+def request_details_by_property_id(property_id):
     """Return a properties."""
     url = "https://realty-in-us.p.rapidapi.com/properties/v2/detail"
 
@@ -85,8 +94,14 @@ def get_property_by_id(property_id):
     data = response.json()
     return data
 
-def get_theproperty_by_id(property_id):
-    """Return a property in the list."""
+# def add_a_listing(property_id):
+#     """Add a property in the DB."""
+#     listing = Listing(property_id=property_id)
+
+#     return listing
+
+def get_property_by_id(property_id):
+    """Get a property from the DB."""
     
     return Property.query.filter(Property.property_id == property_id).first()
 
@@ -95,12 +110,17 @@ def get_properties():
 
     return Property.query.all()
 
-def create_properties(address, price, size, date_lis):
+def get_properties_by_user_id():
+    """Return all properties searched by the user."""
 
-    """Return a new property."""
-    newproperty = Property(address=address, price=price, size=size, date_lis =date_lis)
+    return Property.query.filter()
 
-    return newproperty
+def add_a_property(address, price, date_lis, property_id):
+
+    """Add a new property."""
+    theproperty = Property(address=address, price=price, date_lis =date_lis, property_id=property_id)
+
+    return theproperty
 
 def create_like(theproperty, user):
     """Create and return a liked property."""

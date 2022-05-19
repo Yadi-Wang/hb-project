@@ -12,8 +12,6 @@ from jinja2 import StrictUndefined
 app = Flask(__name__)
 
 app.secret_key = os.environ.get('SECRET_KEY')
-# app.secret_key = "DEV"
-
 
 app.jinja_env.undefined = StrictUndefined
 
@@ -39,7 +37,7 @@ def show_my_homepage():
     
 
 @app.route('/<user_id>/myfavorites')
-def show_my_favorites(user_id):
+def show_my_profile(user_id):
     """show user's liked listings"""
     
     liked_properties = crud.get_likes_by_user(user_id)
@@ -57,8 +55,10 @@ def add_to_favorites(property_id):
     else:
         user = crud.get_user_by_email(logged_in_email)
         user_id = user.user_id
-        theproperty = crud.get_theproperty_by_id(property_id)
-        like = crud.create_like(theproperty, user)
+        
+        fproperty = crud.get_property_by_id(property_id)
+        like = crud.create_like(fproperty, user)
+        
         db.session.add(like)
         db.session.commit()
     
@@ -68,8 +68,13 @@ def add_to_favorites(property_id):
 @app.route('/allproperties')
 def get_properties():
     """go to properties"""
-    properties = crud.get_properties()
-    return render_template("all_properties.html", properties = properties)
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash("You must log in to see all properties.")
+    
+    else:
+        properties = crud.get_properties()
+        return render_template("all_properties.html", properties = properties)
 
 @app.route('/properties')
 def search_properties():
@@ -82,13 +87,30 @@ def show_search_properties():
     """search for properties"""
     search_data = crud.get_search_properties()
     properties_list = search_data["listings"]
+
+    for displayed_property in properties_list:
+        address = displayed_property["address"]
+        price = displayed_property["price"]
+        date_lis = displayed_property["last_update"]
+        property_id = displayed_property["property_id"]
+
+        theproperty = crud.get_property_by_id(property_id)
+        if theproperty:  
+            pass
+        #check if the property already exit
+        else:
+            theproperty = crud.add_a_property(address, price, date_lis, property_id)
+        
+            db.session.add(theproperty)
+            db.session.commit()
+
    
     return render_template("search-results.html", search_results = search_data, properties_list = properties_list)
 
 @app.route('/properties/<property_id>')
 def show_property(property_id):
     """show details on a particular property"""
-    data = crud.get_property_by_id(property_id)
+    data = crud.request_details_by_property_id(property_id)
     property_details = data["properties"][0]
     address_details = property_details['address']
     photos = property_details['photos']

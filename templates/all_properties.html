@@ -18,5 +18,173 @@
   
   <!-- <script src="static/js/myfavorites.js"> -->
     
-  <!-- </script> -->
+  <!-- added a search bar in the page as well -->
+  <div>
+    <h1>Search for Properties</h1>
+    <form method="GET" action="/properties/search">
+      <div class="row">
+        <label class="form-label above" for="search-keyword">Search Keyword</label>
+        <small class="form-text text-muted">
+          Leave this blank to get all properties!
+        </small>
+
+        <input
+          id="search-keyword"
+          class="form-control"
+          type="text"
+          name="keyword"
+        >
+      </div>
+
+      <div class="row">
+        <label class="form-label above" for="search-state">State</label>
+
+        <input
+          id="search-state"
+          class="form-control"
+          type="text"
+          name="state"
+        >
+      </div>
+
+      <div class="row">
+        <label class="form-label above" for="search-city">City</label>
+
+        <input
+          id="search-city"
+          class="form-control"
+          type="text"
+          name="city"
+        >
+      </div>
+
+      <div class="row">
+        <label class="form-label above" for="search-zip">Zipcode</label>
+
+        <input
+          id="search-zip"
+          class="form-control"
+          type="text"
+          name="zipcode"
+        >
+      </div>
+
+      <div class="row">
+        <label class="form-label above" for="search-proptype">Property Type</label>
+
+        <input
+          id="search-proptype"
+          class="form-control"
+          type="checkbox"
+          name="proptype"
+          value="single_family">
+        <label>Single-Family</label>
+
+        <input
+          id="search-proptype"
+          class="form-control"
+          type="checkbox"
+          name="proptype"
+          value="condo">
+        <label>Townhouse/Condo</label>
+
+        <input
+          id="search-proptype"
+          class="form-control"
+          type="checkbox"
+          name="proptype"
+          value="multi_family">
+        <label>Multi_Family</label>
+      </div>
+      
+      <div class="row">
+        <label class="form-label above" for="search-bath">Baths_min</label>
+  
+        <input
+          list="search-bath"
+          name="min_bath"
+          class="form-control"
+        >
+        <datalist id="search-bath">
+          <option value="0">
+          <option value="1">
+          <option value="2">
+          <option value="3">
+          <option value="4">
+          <option value="5">
+          <option value="6">
+          <option value="7">
+          <option value="8">
+          <option value="9">
+          <option value="10">
+        </datalist>
+      </div>
+  
+      <div class="row">
+        <label class="form-label above" for="search-bath">Beds_min</label>
+  
+        <input
+          list="search-bed"
+          name="min_bed"
+          class="form-control"
+        >
+        <datalist id="search-bed">
+          <option value="0">
+          <option value="1">
+          <option value="2">
+          <option value="3">
+          <option value="4">
+          <option value="5">
+          <option value="6">
+          <option value="7">
+          <option value="8">
+          <option value="9">
+          <option value="10">
+        </datalist>
+      </div>
+  
+      <div class="row">
+        <label class="form-label above" for="search-price">Max Price: $</label>
+  
+        <input
+          id="search-price"
+          class="form-control"
+          type="text"
+          name="maxprice"
+        >
+        <small>Format: 1234567, no decimal place</small>
+      </div>
+  
+      <div class="row">
+        <label class="form-label above" for="search-sqft">Min Squre Feet: </label>
+  
+        <input
+          id="search-sqft"
+          class="form-control"
+          type="text"
+          name="sqft_min"
+        >
+        <small>Format: 1234567, no decimal place</small>
+      </div>
+  
+      <div class="row">
+        <label class="form-label above" for="search-pets">Pets Allowed</label>
+  
+        <input
+          type="checkbox"
+          id="search-pets"
+          name="pets"
+          class="form-control"
+          value="true"
+        >
+  
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-3">
+          <input type="submit" value="Look for your home!" class="btn btn-primary">
+        </div>
+      </div>
+    </form>
+  </div>
 {% endblock %}

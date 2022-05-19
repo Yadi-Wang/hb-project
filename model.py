@@ -35,14 +35,16 @@ class Like(db.Model):
     like_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
-    property_id = db.Column(db.Integer, db.ForeignKey("properties.property_id"))
+    property_id = db.Column(db.BigInteger, db.ForeignKey("properties.property_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+   
     
     user = db.relationship("User", backref="likes")
     theproperty = db.relationship("Property", backref="likes")
     
+    
     def __repr__(self):
-        return f'<LIke like_id={self.like_id} property_id={self.property_id}>'
+        return f'<Like like_id={self.like_id} property_id={self.property_id}>'
 
 
 class Property(db.Model):
@@ -50,32 +52,32 @@ class Property(db.Model):
 
     __tablename__ = 'properties'
 
-    property_id = db.Column(db.Integer,
-                        autoincrement=True,
+    property_id = db.Column(db.BigInteger,
                         primary_key=True,)
     address = db.Column(db.String)
-    price = db.Column(db.Integer)
-    size = db.Column(db.Integer)
+    price = db.Column(db.String)
     date_lis = db.Column(db.String)
-
+    
 
     def __repr__(self):
         return f'<Property property_id={self.property_id}>'
 
-        
 
-class Listing(db.Model):
-    """A listing."""
 
-    __tablename__ = 'listings'
+# class Listing(db.Model):
+#     """A listing."""
 
-    listing_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True,)
-    property_id = db.Column(db.Integer)
+#     __tablename__ = 'listings'
 
-    def __repr__(self):
-        return f'<Listing listing_id={self.listing_id}>'
+#     listing_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True,)
+#     property_id = db.Column(db.BigInteger, db.ForeignKey("property.property_id"))
+    
+#     theproperty = db.relationship("Property", backref="listings")
+    
+#     def __repr__(self):
+#         return f'<Listing listing_id={self.property_id}>'
 
 
 

@@ -2,8 +2,10 @@
 
 {% block title %}About this Home{% endblock %}
 
+
 {% block body %}
 <h1>${{ property_details.price}}</h1>
+<a href="/add_to_favorites/{{theproperty.property_id }}"> Add to favorites! </a>
 <p>
   {{ address_details.line}},<br>
   {{ address_details.city}}
