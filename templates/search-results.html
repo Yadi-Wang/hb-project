@@ -36,13 +36,22 @@
                   <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                       <a href="/properties/{{ theproperty['property_id'] }}" target="_blank">
-                        <h5>{{ theproperty['address'] }}, {{ theproperty['price'] }}  </h5>
+                        <h5>{{ theproperty['address'] }}</h5> 
                       </a>
-
+                    </div>
+                    <div>
+                      {{ theproperty['price'] }} <br>
+                      {{ theproperty['beds'] }} Beds <br>
+                      {{ theproperty['baths'] }} Baths <br>
+                    </div>
+                    <div>
                       <a href="/add_to_favorites/{{theproperty['property_id']}}">Add to favorites!
                       </a>
-                      
                     </div>
+                    <div>
+                      <img src="{{theproperty['photo']}}">
+                    </div>
+                    
                   </div>
                 </div>
               </li>

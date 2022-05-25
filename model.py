@@ -35,7 +35,7 @@ class Like(db.Model):
     like_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
-    property_id = db.Column(db.BigInteger, db.ForeignKey("properties.property_id"))
+    property_id = db.Column(db.String, db.ForeignKey("properties.property_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
    
     
@@ -47,17 +47,37 @@ class Like(db.Model):
         return f'<Like like_id={self.like_id} property_id={self.property_id}>'
 
 
+class Application(db.Model):
+    """A application."""
+
+    __tablename__ = 'applications'
+
+    application_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True,)
+    property_id = db.Column(db.String, db.ForeignKey("properties.property_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+   
+    
+    user = db.relationship("User", backref="applications")
+    theproperty = db.relationship("Property", backref="applications")
+    
+    
+    def __repr__(self):
+        return f'<Application application_id={self.application_id} property_id={self.property_id}>'
+
+
 class Property(db.Model):
     """Listings for a property."""
 
     __tablename__ = 'properties'
 
-    property_id = db.Column(db.BigInteger,
+    property_id = db.Column(db.String,
                         primary_key=True,)
     address = db.Column(db.String)
     price = db.Column(db.String)
     date_lis = db.Column(db.String)
-    
+      
 
     def __repr__(self):
         return f'<Property property_id={self.property_id}>'

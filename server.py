@@ -37,13 +37,22 @@ def show_my_homepage():
     
 
 @app.route('/<user_id>/myfavorites')
-def show_my_profile(user_id):
+def show_my_favorites(user_id):
     """show user's liked listings"""
     
     liked_properties = crud.get_likes_by_user(user_id)
     
     return render_template("myproperties.html", liked_properties=liked_properties)
 
+
+@app.route('/<user_id>/myapplications')
+def show_my_application(user_id):
+    """show user's liked listings"""
+    
+    applied_properties = crud.get_applications_by_user(user_id)
+    
+    return render_template("myapplications.html", applied_properties=applied_properties)
+    
 
 @app.route('/add_to_favorites/<property_id>')
 def add_to_favorites(property_id):
@@ -65,16 +74,38 @@ def add_to_favorites(property_id):
     return redirect(f"/{user_id}/myfavorites")
 
 
+@app.route('/apply/<property_id>')
+def apply(property_id):
+    """Submit an application"""
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash("You must log in to ssubmit an application.")
+    
+    else:
+        user = crud.get_user_by_email(logged_in_email)
+        user_id = user.user_id
+        
+        apl_property = crud.get_property_by_id(property_id)
+        application = crud.create_application(apl_property, user)
+        
+        db.session.add(application)
+        db.session.commit()
+    
+    return redirect(f"/{user_id}/myapplications")
+
+
 @app.route('/allproperties')
 def get_properties():
     """go to properties"""
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
         flash("You must log in to see all properties.")
+        return redirect('/')
     
     else:
         properties = crud.get_properties()
         return render_template("all_properties.html", properties = properties)
+
 
 @app.route('/properties')
 def search_properties():
@@ -107,6 +138,7 @@ def show_search_properties():
    
     return render_template("search-results.html", search_results = search_data, properties_list = properties_list)
 
+
 @app.route('/properties/<property_id>')
 def show_property(property_id):
     """show details on a particular property"""
@@ -117,6 +149,7 @@ def show_property(property_id):
     schools = property_details['schools']
     return render_template("property_details.html", property_details = property_details, address_details = address_details, photos = photos, schools = schools)
 
+
 @app.route("/users")
 def all_users():
     """View all users."""
@@ -124,6 +157,7 @@ def all_users():
     users = crud.get_users()
 
     return render_template("all_users.html", users=users)
+
 
 @app.route("/users", methods=["POST"])
 def register_user():
