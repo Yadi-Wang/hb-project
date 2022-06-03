@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}The Home of Your Home{% endblock %}
+{% block head %} <link rel="stylesheet" href="/static/css/style.css"> {% endblock %}
 
 {% block body %}
   <h1>Welcome!{{session["user_email"]}}</h1>
@@ -12,5 +13,15 @@
     <li><a href="/{{user.user_id}}/myapplications">View my applications!</a></li>
     <li><a href="/properties">Search your home</a></li>
   </ul>
+
+  <!-- <h1>See on the map!</h1>
+  <div id="map"></div>
+
+  <script src="/static/js/maps.js"></script>
+
+  <script
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEqKcxHpYcXy26vXDUFySKYx0RqcOevmc&callback=initMap">
+  </script> -->
 
 {% endblock %}

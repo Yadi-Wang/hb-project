@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}About this Home{% endblock %}
+{% block head %} <link rel="stylesheet" href="/static/css/style.css"> {% endblock %}
 
 
 {% block body %}
 <h1>${{ property_details.get('price')}}</h1>
+<a href="/myhomepage"> Back to Home Page! </a><br>
 <a href="/add_to_favorites/{{property_details.property_id }}"> Add to favorites! </a><br>
 
 <a href="/apply/{{property_details.property_id}}>"> Apply today!</a>
@@ -13,8 +15,8 @@
   {{ address_details.city}}
   {{ address_details.state_code}}
   {{ address_details.postal_code}} <br>
-  {{ address_details.get('lat')}}
-  {{ address_details.get('lon')}} <br>
+  <div id="lat">{{ address_details.get('lat')}}</div>
+  <div id="lon">{{ address_details.get('lon')}}</div><br>
   {{ property_details.get('prop_type')}} <br>
   {{ property_details.get('beds')}} Beds<br>
   {{ property_details.get('baths_full')}} Baths<br>
@@ -22,7 +24,9 @@
 
 </p>
 <h1>See on the map!</h1>
-<div>google map!</div>
+<div id="map"></div>
+
+
 
 <h1>Key Feature!</h1>
 Status {{ property_details.get('prop_status')}} <br>
@@ -54,6 +58,13 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
   {% endfor %}
   </ul>
 </div>
-  
+
+
+<script src="/static/js/maps.js"></script>
+
+<script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEqKcxHpYcXy26vXDUFySKYx0RqcOevmc&callback=initMap">
+</script>
 
 {% endblock %}
