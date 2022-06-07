@@ -199,6 +199,11 @@ def process_login():
 
     return redirect("/")
 
+@app.route("/log_out")
+def sign_out():
+    session.pop("user_email")
+    return redirect("/")
+
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

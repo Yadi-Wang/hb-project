@@ -59,6 +59,15 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
   </ul>
 </div>
 
+<h1>Point of Interests</h1>
+<div id="interests">
+  <ul>
+    <li>Malls</li>
+    <li>Restaurants</li>
+    <li>Trails</li>
+  </ul>
+</div>
+
 
 <script src="/static/js/maps.js"></script>
 
@@ -66,5 +75,6 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
   async
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEqKcxHpYcXy26vXDUFySKYx0RqcOevmc&callback=initMap">
 </script>
+
 
 {% endblock %}

@@ -1,1 +1,2 @@
 export SECRET_KEY="dfhi7ip\=6isfhklk;rthw"
+export YELP_API_KEY="6qRADsa6AXsVqtRhgedgNWqJGZUrK_KeebIKODou-F0Srx7ZdV4tjE9O4YDFpRzYZHtwiIi8OsUMqXB28kRmZZnHJv5nGBcKJakmUdNwV8_3c7oNOt4MdeAq30ctYnYx"

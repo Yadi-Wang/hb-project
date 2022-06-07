@@ -7,20 +7,7 @@
 
   <h1>Search for Properties</h1>
   <form method="GET" action="/properties/search">
-    <div class="row">
-      <label class="form-label above" for="search-keyword">Search Keyword</label>
-      <small class="form-text text-muted">
-        Leave this blank to get all properties!
-      </small>
-
-      <input
-        id="search-keyword"
-        class="form-control"
-        type="text"
-        name="keyword"
-      >
-    </div>
-
+  <div class="container">
     <div class="row">
       <label class="form-label above" for="search-state">State</label>
 
@@ -29,6 +16,7 @@
         class="form-control"
         type="text"
         name="state"
+        placeholder="eg. CA"
       >
     </div>
 
@@ -40,6 +28,7 @@
         class="form-control"
         type="text"
         name="city"
+        placeholder="eg. San Francisco"
       >
     </div>
 
@@ -51,35 +40,43 @@
         class="form-control"
         type="text"
         name="zipcode"
+        placeholder="eg. 94112"
       >
     </div>
 
     <div class="row">
+      
       <label class="form-label above" for="search-proptype">Property Type</label>
 
+      <div class="form-check">
       <input
         id="search-proptype"
-        class="form-control"
+        class="form-check-input"
         type="checkbox"
         name="proptype"
         value="single_family">
-      <label>Single-Family</label>
+      <label class="form-label above" for="search-proptype">Single-Family</label>
+      </div>
 
+      <div class="form-check">
       <input
         id="search-proptype"
-        class="form-control"
+        class="form-check-input"
         type="checkbox"
         name="proptype"
         value="condo">
-      <label>Townhouse/Condo</label>
+      <label class="form-label above" for="search-proptype">Townhouse/Condo</label>
+      </div>
 
+      <div class="form-check">
       <input
         id="search-proptype"
-        class="form-control"
+        class="form-check-input"
         type="checkbox"
         name="proptype"
         value="multi_family">
-      <label>Multi_Family</label>
+      <label class="form-label above" for="search-proptype">Multi_Family</label>
+      </div>
     </div>
 
     <div class="row">
@@ -152,14 +149,14 @@
       <small>Format: 1234567, no decimal place</small>
     </div>
 
-    <div class="row">
-      <label class="form-label above" for="search-pets">Pets Allowed</label>
+    <div class="form-check">
+      <label class="form-check-label" for="search-pets">Pets Allowed</label>
 
       <input
         type="checkbox"
         id="search-pets"
         name="pets"
-        class="form-control"
+        class="form-check-input"
         value="true"
       >
 
@@ -170,6 +167,7 @@
         <input type="submit" value="Look for your home!" class="btn btn-primary">
       </div>
     </div>
+  </div>
   </form>
 
   

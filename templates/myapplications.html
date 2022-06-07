@@ -4,11 +4,15 @@
 {% block body %}
   <h1>Applied!</h1>
 
-  
+  <div class="album py-5 bg-light">
+    <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for each_property in applied_properties %}
+
     <div class="homeContainer" id="showAddress">
-    <li>
       
+      <div class="card" style="width: 18rem;">
+
       
       <div class="d-flex w-100 justify-content-between">
         <a href="/properties/{{ each_property.theproperty.property_id }}" target="_blank">
@@ -25,13 +29,13 @@
         </a>
       </div>
 
-
       <img id="photo-filed" height="200" width="200">
-    </li>
+    </div>
     </div>
     {% endfor %}
-  
-  
+    </div>
+    </div>
+  </div>
 
   <a class="btn btn-primary" href="/myhomepage">Go back to homepage!</a>
 
