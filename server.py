@@ -70,8 +70,9 @@ def add_to_favorites(property_id):
         
         db.session.add(like)
         db.session.commit()
-    
-    return redirect(f"/{user_id}/myfavorites")
+
+    return render_template("newproperty.html", like=like)
+    # return redirect(f"/{user_id}/myfavorites")
 
 
 @app.route('/apply/<property_id>')
@@ -79,7 +80,7 @@ def apply(property_id):
     """Submit an application"""
     logged_in_email = session.get("user_email")
     if logged_in_email is None:
-        flash("You must log in to ssubmit an application.")
+        flash("You must log in to submit an application.")
     
     else:
         user = crud.get_user_by_email(logged_in_email)
@@ -147,6 +148,7 @@ def show_property(property_id):
     address_details = property_details['address']
     photos = property_details['photos']
     schools = property_details['schools']
+    
     return render_template("property_details.html", property_details = property_details, address_details = address_details, photos = photos, schools = schools)
 
 

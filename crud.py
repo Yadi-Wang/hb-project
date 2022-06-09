@@ -54,7 +54,7 @@ def get_search_properties():
     no_pets_allowed = request.args.get('pets', '')
     
 
-    url = "https://realty-in-us.p.rapidapi.com/properties/list-for-rent"
+    url = "https://realty-in-us.p.rapidapi.com/properties/list-for-sale"
 
     querystring = {'state_code': state, 
                    'city': city,
@@ -149,7 +149,7 @@ def create_application(theproperty, user):
 def get_applications_by_user(user_id):
     """Get an application by user_id."""
 
-    return Application.query.filter(Like.user_id == user_id).all()
+    return Application.query.filter(Application.user_id == user_id).all()
 
 
 

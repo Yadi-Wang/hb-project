@@ -7,14 +7,14 @@
 {% block body %}
 <h1>${{ property_details.get('price')}}</h1>
 <a href="/myhomepage"> Back to Home Page! </a><br>
-<a href="/add_to_favorites/{{property_details.property_id }}"> Add to favorites! </a><br>
+<a href="/add_to_favorites/{{property_details.get('property_id')}}"> Add to favorites! </a><br>
 
-<a href="/apply/{{property_details.property_id}}>"> Apply today!</a>
+<a href="/apply/{{property_details.get('property_id')}}>"> Apply today!</a>
 <p>
   {{ address_details.get('line')}},<br>
   {{ address_details.city}}
   {{ address_details.state_code}}
-  {{ address_details.postal_code}} <br>
+  <div id="zip">{{ address_details.postal_code}}</div><br>
   <div id="lat">{{ address_details.get('lat')}}</div>
   <div id="lon">{{ address_details.get('lon')}}</div><br>
   {{ property_details.get('prop_type')}} <br>
@@ -64,6 +64,8 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
   <ul>
     <li>Malls</li>
     <li>Restaurants</li>
+    <table id="restaurants"></table>
+    <script src="/static/js/restaurants.js"></script>
     <li>Trails</li>
   </ul>
 </div>
