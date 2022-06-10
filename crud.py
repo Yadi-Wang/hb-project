@@ -155,6 +155,8 @@ def get_applications_by_user(user_id):
 
 
 
+
+
 # def get_property_by_id(property_id):
 #     """Return a movie by primary key."""
 

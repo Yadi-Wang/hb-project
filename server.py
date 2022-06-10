@@ -66,13 +66,25 @@ def add_to_favorites(property_id):
         user_id = user.user_id
         
         fproperty = crud.get_property_by_id(property_id)
-        like = crud.create_like(fproperty, user)
+
+        all_liked_properties = crud.get_likes_by_user(user_id)
+
+        all_liked_properties_id = []
+        for each_property in all_liked_properties:
+            all_liked_properties_id.append(each_property.property_id)
+
+
+        #check whether user already liked this property
+        if property_id in all_liked_properties_id:
+            pass
+        else:
+            like = crud.create_like(fproperty, user)
         
-        db.session.add(like)
-        db.session.commit()
+            db.session.add(like)
+            db.session.commit()
 
     # return render_template("newproperty.html", like=like)
-    return redirect(f"/{user_id}/myfavorites")
+        return redirect(f"/{user_id}/myfavorites")
 
 
 @app.route('/apply/<property_id>')
@@ -87,12 +99,23 @@ def apply(property_id):
         user_id = user.user_id
         
         apl_property = crud.get_property_by_id(property_id)
-        application = crud.create_application(apl_property, user)
+        all_applied_properties = crud.get_applications_by_user(user_id)
+
+        all_applied_properties_id = []
+        for each_property in all_applied_properties:
+            all_applied_properties_id.append(each_property.property_id)
+
+        #check whether user already applied this property
+        if property_id in all_applied_properties_id:
+            pass
+        else:
+            application = crud.create_application(apl_property, user)
         
-        db.session.add(application)
-        db.session.commit()
-    
-    return redirect(f"/{user_id}/myapplications")
+            db.session.add(application)
+            db.session.commit()
+
+        # return render_template("newproperty.html", like=application)
+        return redirect(f"/{user_id}/myapplications")
 
 
 @app.route('/allproperties')
