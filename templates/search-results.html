@@ -40,6 +40,7 @@
                       </a>
                     </div>
                     <div>
+                      {{ theproperty['property_id'] }} <br>
                       {{ theproperty['price'] }} <br>
                       {{ theproperty['beds'] }} Beds <br>
                       {{ theproperty['baths'] }} Baths <br>
@@ -49,7 +50,7 @@
                       </a>
                     </div>
                     <div>
-                      <img src="{{theproperty['photo']}}">
+                      <img src="{{theproperty.get('photo')}}">
                     </div>
                     
                   </div>

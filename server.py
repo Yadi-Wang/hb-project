@@ -71,8 +71,8 @@ def add_to_favorites(property_id):
         db.session.add(like)
         db.session.commit()
 
-    return render_template("newproperty.html", like=like)
-    # return redirect(f"/{user_id}/myfavorites")
+    # return render_template("newproperty.html", like=like)
+    return redirect(f"/{user_id}/myfavorites")
 
 
 @app.route('/apply/<property_id>')
@@ -145,11 +145,19 @@ def show_property(property_id):
     """show details on a particular property"""
     data = crud.request_details_by_property_id(property_id)
     property_details = data["properties"][0]
+    returned_id = property_details["property_id"]
+    
+    if returned_id.isnumeric():
+        new_property_id = returned_id
+    
+    else:
+        new_property_id = returned_id[1:]
+
     address_details = property_details['address']
     photos = property_details['photos']
     schools = property_details['schools']
     
-    return render_template("property_details.html", property_details = property_details, address_details = address_details, photos = photos, schools = schools)
+    return render_template("property_details.html", new_property_id = new_property_id, property_details = property_details, address_details = address_details, photos = photos, schools = schools)
 
 
 @app.route("/users")

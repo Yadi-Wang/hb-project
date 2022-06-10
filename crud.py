@@ -51,7 +51,7 @@ def get_search_properties():
     min_bed = request.args.get('min_bed', '')
     price_max = request.args.get('maxprice', '')
     sqft_min = request.args.get('sqft_min', '')
-    no_pets_allowed = request.args.get('pets', '')
+    pets = request.args.get('pets', '')
     
 
     url = "https://realty-in-us.p.rapidapi.com/properties/list-for-sale"
@@ -67,7 +67,7 @@ def get_search_properties():
                    'beds_min': min_bed,
                    'price_max': price_max,
                    'sqft_min': sqft_min,
-                   'no_pets_allowed': no_pets_allowed}
+                   'no_pets_allowed': pets}
     headers = {
     "X-RapidAPI-Host": "realty-in-us.p.rapidapi.com",
 	"X-RapidAPI-Key": "ad06cc1ec2mshf405726e1df988dp12ad4bjsn96ac2fc85cba"}
@@ -81,7 +81,7 @@ def get_search_properties():
 
 def request_details_by_property_id(property_id):
     """Return a properties."""
-    url = "https://realty-in-us.p.rapidapi.com/properties/v2/detail"
+    url = url = "https://realty-in-us.p.rapidapi.com/properties/v2/detail"
 
     querystring = {"property_id":property_id}
 

@@ -7,10 +7,11 @@
 {% block body %}
 <h1>${{ property_details.get('price')}}</h1>
 <a href="/myhomepage"> Back to Home Page! </a><br>
-<a href="/add_to_favorites/{{property_details.get('property_id')}}"> Add to favorites! </a><br>
+<a href="/add_to_favorites/{{new_property_id}}"> Add to favorites! </a><br>
 
-<a href="/apply/{{property_details.get('property_id')}}>"> Apply today!</a>
+<a href="/apply/{{new_property_id}}>"> Apply today!</a>
 <p>
+  id:{{new_property_id}}
   {{ address_details.get('line')}},<br>
   {{ address_details.city}}
   {{ address_details.state_code}}
@@ -19,8 +20,14 @@
   <div id="lon">{{ address_details.get('lon')}}</div><br>
   {{ property_details.get('prop_type')}} <br>
   {{ property_details.get('beds')}} Beds<br>
+
+  
   {{ property_details.get('baths_full')}} Baths<br>
+  
+
+  {% if 'building_size' in 'property_details' %}
   {{ property_details.building_size.get('size')}} sqft<br>
+  {% endif %}
 
 </p>
 <h1>See on the map!</h1>
@@ -30,7 +37,10 @@
 
 <h1>Key Feature!</h1>
 Status {{ property_details.get('prop_status')}} <br>
+
+{% if 'lot_size' in 'property_details' %}
 Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
+{% endif %}
 
 <h1>See below!</h1>
 
