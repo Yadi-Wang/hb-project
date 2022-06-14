@@ -72,11 +72,42 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
 <h1>Point of Interests</h1>
 <div id="interests">
   <ul>
-    <li>Malls</li>
-    <li>Restaurants</li>
-    <table id="restaurants"></table>
-    <script src="/static/js/restaurants.js"></script>
-    <li>Trails</li>
+
+    <div>
+      <li>Restaurants</li>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Distance</th>
+          </tr>
+        </thead>
+        <tbody id="restaurants">
+          <!--table populate the JS file-->
+        </tbody>
+      </table>
+      <p id="restaurants"></p>
+      <script src="/static/js/nearby_restaurants.js"></script>
+    </div>
+    <div>
+      <li>Trails</li>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>City,State</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="outdoors">
+          <!--table populate the JS file-->
+        </tbody>
+      </table>
+      <p id="restaurants"></p>
+      <script src="/static/js/nearby_trails.js"></script>
+    </div>
+    
   </ul>
 </div>
 
@@ -87,6 +118,8 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
   async
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEqKcxHpYcXy26vXDUFySKYx0RqcOevmc&callback=initMap">
 </script>
+
+
 
 
 {% endblock %}

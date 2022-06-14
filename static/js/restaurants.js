@@ -2,43 +2,47 @@
 
 console.log('Hello, my favorite restaurants!');
 
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Host': 'restaurants-near-me-usa.p.rapidapi.com',
-		'X-RapidAPI-Key': 'ad06cc1ec2mshf405726e1df988dp12ad4bjsn96ac2fc85cba'
-	}
-};
+// let showRes = document.querySelectorAll('#restaurants');
+
+console.log("Here is the photo");
 
 
 
 
-const zip = document.querySelector('#zip').innerText;
 
-fetch(`https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/${zip}/0`, options)
-	.then((response) => response.json())
-	.then((result) => result.restaurants)
-    .then(show(data));
-    
-    function show(data) {
-        let tab =
-            `<tr>
-            <th>Name</th>
-            <th>Address</th>
-            </tr>`;
-
-        for (let r of result.restaurants){
-            tab += `<tr>
-            <td>${r.restaurantName}</td>
-            <td>${r.address}</td>
-            </tr>`;
+async function start() {
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'ad06cc1ec2mshf405726e1df988dp12ad4bjsn96ac2fc85cba',
+            'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
         }
-        document.querySelector('#restaurants').innerHTML= tab
-    }
-
+    };
+    const latitude = 37.733795
+    const longitude = -122.446747
     
-    // .then((restaurant) => document.querySelector('#restaurants')= restaurant)
+    const response = await fetch(`https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng?latitude=${latitude}&longitude=${longitude}&limit=5&currency=USD&distance=2&open_now=false&lunit=km&lang=en_US`, options);
+    const data = await response.json()
+    // createRestaurantList(data.data)
+    const restaurants = await data.data
+    console.log(restaurants)
 
 
 
+    for (const restaurant of restaurants){
+        const restrName = restaurant['name'];
+        createRestaurantList(restrName)
+        };
 
+    function createRestaurantList(restrName) {
+        document.querySelector('#restaurants').append(restrName)
+        }
+}
+
+start()
+
+
+
+// function createRestaurantList(restaurants) {
+//     document.querySelector('#restaurants').innerHTML= restaurants
+// }
