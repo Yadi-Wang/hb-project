@@ -2,8 +2,48 @@
 {% block title %}All Properties{% endblock %}
 
 {% block body %}
-  <h1>All Properties</h1>
+<nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
+  <div class="container">
+    <a href="" class="navbar-brand">Navigation</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="/allproperties" class="nav-link">View all properties</a>
+        </li>
 
+        <li class="nav-item">
+          <a href="/log_out" class="nav-link">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class ="p-5">
+  <div class ="container">
+    <div class="row">
+      {% for theproperty in properties %}
+      <div class="col-lg">
+        <div class="card shadow-lg" style="width: 18rem;">
+          <img src="" alt="" class="card-img-top">
+          <div class="card-body">
+            <a href="/properties/{{theproperty.property_id}}" class="card-title"> {{ theproperty.address}}</a>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            
+            <a href="/add_to_favorites/{{theproperty.property_id }}" class="btn btn-primary"> Add to favorites!</a>
+            <a href="/apply/{{theproperty.property_id}}" class="btn btn-primary"> Apply today!</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- <h1>All Properties</h1>
   <ul>
     {% for theproperty in properties %}
       <li>
@@ -17,7 +57,7 @@
 
 
     {% endfor %}
-  </ul>
+  </ul> -->
   
   <!-- <script src="static/js/myfavorites.js"> -->
     

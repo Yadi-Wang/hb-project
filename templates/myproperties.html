@@ -3,29 +3,44 @@
 
 {% block body %}
   <h1>Favorites!</h1>
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <p>
-          <a class="btn btn-primary my-2" href="/myhomepage">Go back to homepage!</a>
-        </p>
+  <nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
+    <div class="container">
+      <a href="" class="navbar-brand">Navigation</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/allproperties" class="nav-link">View all properties</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/log_out" class="nav-link">Log out</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/myhomepage" class="nav-link">Go back to homepage!</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </section>
+  </nav>
+
   
     
-  <div class="album py-5 bg-light" id="showAddress">
+  <div class="p-5" id="showAddress">
     
     <div class="container">
   
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       {% for each_property in liked_properties %}
-      <div class="col">
-        <div class="card shadow-sm">
+      <div class="col-lg">
+        <div class="card shadow-lg" style="width: 18rem;">
           <div class="card-body">
             
             <a href="/properties/{{each_property.theproperty.property_id}}" target="_blank">
-              <p class="card-text" id="address-filed"> {{each_property.theproperty.address}}</p>
+              <p class="card-title" id="address-filed"> {{each_property.theproperty.address}}</p>
               <img src=" " height="100%" width="100%" style="width: 100%; height:100%">
             </a>
             
@@ -34,7 +49,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               
-              <a href="/apply/{{each_property.theproperty.property_id}}" class="btn btn-sm btn-outline-secondary">
+              <a href="/apply/{{each_property.theproperty.property_id}}" class="btn btn-outline-primary">
                 <p>Apply it today!</p>
               </a>
               

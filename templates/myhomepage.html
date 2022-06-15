@@ -3,17 +3,45 @@
 {% block head %} <link rel="stylesheet" href="/static/css/style.css"> {% endblock %}
 
 {% block body %}
+  <nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
+    <div class="container">
+      <a href="" class="navbar-brand">Navigation</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/allproperties" class="nav-link">View all properties</a>
+          </li>
+          <li class="nav-item">
+            <a href="/{{user.user_id}}/myfavorites" class="nav-link">View favorites!</a>
+          </li>
+          <li class="nav-item">
+            <a href="/{{user.user_id}}/myapplications" class="nav-link">View my applications!</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/log_out" class="nav-link">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <h1>Welcome!{{session["user_email"]}}</h1>
   
 
-  <h2>Navigation</h2>
-  <ul>
-    <li><a href="/allproperties">View all properties</a></li>
-    <li><a href="/{{user.user_id}}/myfavorites">View favorites!</a></li>
-    <li><a href="/{{user.user_id}}/myapplications">View my applications!</a></li>
-    <li><a href="/properties">Search for your future home!</a></li>
-    <li><a href="/log_out">Log out</a></li>
-  </ul>
+  <div class="p-5 text-center border-bottom">
+    <h1>Homes!</h1> 
+    <div class="col-lg-6 mx-auto">
+      <p class="lead m-4">
+        Quick search
+      </p>
+      <a class="btn btn-primary" href="/properties" role="button">Search for your future home!</a>
+    </div>
+  </div>
+
 
   <!-- <div>
     <li>Restaurants</li>
