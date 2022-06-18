@@ -31,9 +31,9 @@
           <img src="" alt="" class="card-img-top">
           <div class="card-body">
             <a href="/properties/{{theproperty.property_id}}" class="card-title"> {{ theproperty.address}}</a>
+
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            
-            <a href="/add_to_favorites/{{theproperty.property_id }}" class="btn btn-primary"> Add to favorites!</a>
+            <button id="propertyid-filed" class="btn btn-primary">{{theproperty.property_id }}</button>
             <a href="/apply/{{theproperty.property_id}}" class="btn btn-primary"> Apply today!</a>
           </div>
         </div>
@@ -43,23 +43,8 @@
   </div>
 </div>
 
-<!-- <h1>All Properties</h1>
-  <ul>
-    {% for theproperty in properties %}
-      <li>
-        <a href="/properties/{{theproperty.property_id}}">
-          {{ theproperty.address}}
-        </a>
-      </li>
-      
-      <a class="btn btn-primary" href="/add_to_favorites/{{theproperty.property_id }}">Add to favorites!</a><br>
-      <a href="/apply/{{theproperty.property_id}}"> Apply today!</a>
-
-
-    {% endfor %}
-  </ul> -->
   
-  <!-- <script src="static/js/myfavorites.js"> -->
+  
     
   <!-- added a search bar in the page as well -->
   <div>
@@ -230,4 +215,6 @@
       </div>
     </form>
   </div>
+
+  <script src="static/js/like.js"> </script>
 {% endblock %}
