@@ -41,8 +41,11 @@ def show_my_favorites(user_id):
     """show user's liked listings"""
     
     liked_properties = crud.get_likes_by_user(user_id)
+    logged_in_email = session.get("user_email")
+    user = crud.get_user_by_email(logged_in_email)
     
-    return render_template("myproperties.html", liked_properties=liked_properties)
+    
+    return render_template("myproperties.html", liked_properties=liked_properties, user=user)
 
 
 @app.route('/<user_id>/myapplications')
@@ -50,14 +53,17 @@ def show_my_application(user_id):
     """show user's liked listings"""
     
     applied_properties = crud.get_applications_by_user(user_id)
+    logged_in_email = session.get("user_email")
+    user = crud.get_user_by_email(logged_in_email)
     
-    return render_template("myapplications.html", applied_properties=applied_properties)
+    return render_template("myapplications.html", applied_properties=applied_properties, user=user)
     
 
-@app.route('/add_to_favorites/<property_id>')
-def add_to_favorites(property_id):
+@app.route('/add-to-favorites', methods=["POST"])
+def add_to_favorites():
     """Add a favorite property to myfavorites collection"""
     logged_in_email = session.get("user_email")
+    property_id = request.json.get("thepropertyid")
     if logged_in_email is None:
         flash("You must log in to save a favorite.")
     
@@ -82,9 +88,12 @@ def add_to_favorites(property_id):
         
             db.session.add(like)
             db.session.commit()
-
-    # return render_template("newproperty.html", like=like)
-        return redirect(f"/{user_id}/myfavorites")
+        
+        # return render_template("newproperty.html", like=like)
+        # return redirect(f"/{user_id}/myfavorites")
+        return {
+            "success": True, 
+            "property": f"You add this property{property_id}"}
 
 
 @app.route('/apply/<property_id>')
@@ -122,13 +131,15 @@ def apply(property_id):
 def get_properties():
     """go to properties"""
     logged_in_email = session.get("user_email")
+    
+    user = crud.get_user_by_email(logged_in_email)
     if logged_in_email is None:
         flash("You must log in to see all properties.")
         return redirect('/')
     
     else:
         properties = crud.get_properties()
-        return render_template("all_properties.html", properties = properties)
+        return render_template("all_properties.html", properties = properties, user = user)
 
 
 @app.route('/properties')
