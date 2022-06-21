@@ -2,3 +2,49 @@
     height: 400px;
     width: 400px
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: whitesmoke;
+    padding: 1rem;
+}
+
+h1 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+main { 
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* #like-button {
+    
+    width: 48px;
+    height: 48px;
+    position: absolute; 
+    bottom: 8%; 
+    right: 8%;
+} */
+
+.bi-heart {
+    color:red;
+}
+
+.bi-heart-fill {
+    color:red;
+}

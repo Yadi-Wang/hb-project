@@ -3,6 +3,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 
@@ -44,7 +45,7 @@ class Like(db.Model):
     
     
     def __repr__(self):
-        return f'<Like like_id={self.like_id} property_id={self.property_id}>'
+        return f'<Like like_id={self.like_id} property_id={self.property_id} user_id={self.user_id}>'
 
 
 class Application(db.Model):

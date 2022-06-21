@@ -59,6 +59,43 @@ def show_my_application(user_id):
     return render_template("myapplications.html", applied_properties=applied_properties, user=user)
     
 
+# @app.route('/add-to-favorites', methods=["POST"])
+# def add_to_favorites():
+#     """Add a favorite property to myfavorites collection"""
+#     logged_in_email = session.get("user_email")
+#     property_id = request.json.get("thepropertyid")
+#     if logged_in_email is None:
+#         flash("You must log in to save a favorite.")
+    
+#     else:
+#         user = crud.get_user_by_email(logged_in_email)
+#         user_id = user.user_id
+
+#         all_liked_properties = crud.get_likes_by_user(user_id)
+
+#         all_liked_properties_id = []
+#         for each_property in all_liked_properties:
+#             all_liked_properties_id.append(each_property.property_id)
+
+#         if property_id not in all_liked_properties_id:
+#             fproperty = crud.get_property_by_id(property_id)
+#             like = crud.create_like(fproperty, user)
+#             db.session.add(like)
+#             db.session.commit()
+            
+#             # return render_template("newproperty.html", like=like)
+#             # return redirect(f"/{user_id}/myfavorites")
+#             return {
+#                 "action": "add", 
+#                 "property": f"You add this property{property_id}"}
+
+#         unlike_property = crud.get_like_by_user_property_id(user_id, property_id)
+#         # db.session.delete(unlike_property)
+#         # db.session.commit()
+#         return {
+#             "action": "delete", 
+#             "property": f"You delete this property{property_id}"}
+
 @app.route('/add-to-favorites', methods=["POST"])
 def add_to_favorites():
     """Add a favorite property to myfavorites collection"""
@@ -82,7 +119,11 @@ def add_to_favorites():
 
         #check whether user already liked this property
         if property_id in all_liked_properties_id:
-            pass
+            crud.delete_like_by_user_property_id(user_id, property_id)
+            db.session.commit()
+            return {
+                "action": "delete", 
+                "property": f"You delete this property{property_id}"}
         else:
             like = crud.create_like(fproperty, user)
         
@@ -91,9 +132,9 @@ def add_to_favorites():
         
         # return render_template("newproperty.html", like=like)
         # return redirect(f"/{user_id}/myfavorites")
-        return {
-            "success": True, 
-            "property": f"You add this property{property_id}"}
+            return {
+                "action": "add", 
+                "property": f"You add this property{property_id}"}
 
 
 @app.route('/apply/<property_id>')
@@ -133,13 +174,15 @@ def get_properties():
     logged_in_email = session.get("user_email")
     
     user = crud.get_user_by_email(logged_in_email)
+    liked_properties = crud.get_likes_by_user(user.user_id)
+
     if logged_in_email is None:
         flash("You must log in to see all properties.")
         return redirect('/')
     
     else:
         properties = crud.get_properties()
-        return render_template("all_properties.html", properties = properties, user = user)
+        return render_template("all_properties.html", properties = properties, user = user, liked_properties = liked_properties)
 
 
 @app.route('/properties')

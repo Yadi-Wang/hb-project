@@ -3,6 +3,7 @@
 from model import db, User, Like, Property, Application, connect_to_db
 from flask import request
 import requests
+from sqlalchemy import and_
 
 
 # Functions start here!
@@ -132,10 +133,20 @@ def create_like(theproperty, user):
 
     return the_favorite_property
 
+
+
 def get_likes_by_user(user_id):
     """Get a like by user_id."""
 
     return Like.query.filter(Like.user_id == user_id).all()
+
+
+def delete_like_by_user_property_id(user_id, property_id):
+    """Get a like property by filtering user_id and property_id."""
+    string_property_id = str(property_id)
+    return Like.query.filter(Like.user_id == user_id, Like.property_id == string_property_id).delete()
+
+
 
 def create_application(theproperty, user):
     """Create and return an applied property."""
@@ -150,12 +161,6 @@ def get_applications_by_user(user_id):
     """Get an application by user_id."""
 
     return Application.query.filter(Application.user_id == user_id).all()
-
-
-
-
-
-
 
 # def get_property_by_id(property_id):
 #     """Return a movie by primary key."""
