@@ -1,10 +1,10 @@
 'use strict';
 
-console.log('Hello, my favorite restaurants!');
+console.log('Hello, my favorite trails!');
 
 // let showRes = document.querySelectorAll('#restaurants');
 
-console.log("Here is the photo");
+
 
 const optionsTrial = {
     method: 'GET',

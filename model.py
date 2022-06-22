@@ -78,6 +78,8 @@ class Property(db.Model):
     address = db.Column(db.String)
     price = db.Column(db.String)
     date_lis = db.Column(db.String)
+    photo_path = db.Column(db.String)
+
       
 
     def __repr__(self):

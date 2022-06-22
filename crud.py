@@ -116,11 +116,11 @@ def get_properties_by_user_id():
 
     return Property.query.filter()
 
-def add_a_property(address, price, date_lis, property_id):
+def add_a_property(address, price, date_lis, property_id, photo_path):
 
     """Add a new property."""
     
-    theproperty = Property(address=address, price=price, date_lis =date_lis, property_id=property_id)
+    theproperty = Property(address=address, price=price, date_lis =date_lis, property_id=property_id, photo_path=photo_path)
 
     return theproperty
 

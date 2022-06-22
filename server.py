@@ -174,7 +174,11 @@ def get_properties():
     logged_in_email = session.get("user_email")
     
     user = crud.get_user_by_email(logged_in_email)
-    liked_properties = crud.get_likes_by_user(user.user_id)
+    all_liked_properties = crud.get_likes_by_user(user.user_id)
+
+    all_liked_properties_id = []
+    for each_liked_property in all_liked_properties:
+        all_liked_properties_id.append(each_liked_property.property_id)
 
     if logged_in_email is None:
         flash("You must log in to see all properties.")
@@ -182,7 +186,7 @@ def get_properties():
     
     else:
         properties = crud.get_properties()
-        return render_template("all_properties.html", properties = properties, user = user, liked_properties = liked_properties)
+        return render_template("all_properties.html", properties = properties, user = user, all_liked_properties_id = all_liked_properties_id)
 
 
 @app.route('/properties')
@@ -202,13 +206,15 @@ def show_search_properties():
         price = displayed_property["price"]
         date_lis = displayed_property["last_update"]
         property_id = displayed_property["property_id"]
-
+        photo_path = displayed_property.get("photo", None)
+        
         theproperty = crud.get_property_by_id(property_id)
+
         if theproperty:  
             pass
         #check if the property already exit
         else:
-            theproperty = crud.add_a_property(address, price, date_lis, property_id)
+            theproperty = crud.add_a_property(address, price, date_lis, property_id, photo_path)
         
             db.session.add(theproperty)
             db.session.commit()
@@ -220,6 +226,8 @@ def show_search_properties():
 @app.route('/properties/<property_id>')
 def show_property(property_id):
     """show details on a particular property"""
+    logged_in_email = session.get("user_email")
+    user = crud.get_user_by_email(logged_in_email)
     data = crud.request_details_by_property_id(property_id)
     property_details = data["properties"][0]
     returned_id = property_details["property_id"]
@@ -234,7 +242,7 @@ def show_property(property_id):
     photos = property_details['photos']
     schools = property_details['schools']
     
-    return render_template("property_details.html", new_property_id = new_property_id, property_details = property_details, address_details = address_details, photos = photos, schools = schools)
+    return render_template("property_details.html", user = user, new_property_id = new_property_id, property_details = property_details, address_details = address_details, photos = photos, schools = schools)
 
 
 @app.route("/users")

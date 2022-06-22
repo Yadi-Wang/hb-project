@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}All Properties{% endblock %}
-{% block head %}
-<link rel="stylesheet" href="static/css/style.css">
-{% endblock %}
+{% block head %} <link rel="stylesheet" href="/static/css/style.css"> {% endblock %}
 
 {% block body %}
 <nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
@@ -50,11 +48,18 @@
           <div class="card-body">
             <a href="/properties/{{theproperty.property_id}}" class="card-title"> {{ theproperty.address}}</a>
 
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">The card's content.</p>
+            <div class="bd-placeholder-img card-img-top" id="photo-container">
+              <img src="{{theproperty.photo_path}}"  height="200" width="250" class="img-thumbnail">
+            </div>
             <form id="add-favorite-form" method="post" action="/add-to-favorites">
-              <button type="submit" value="{{theproperty.property_id}}" class="btn btn-primary bi bi-heart" id="like-button">
-                
+              {% if theproperty.property_id not in all_liked_properties_id %}
+              <button type="submit" value="{{theproperty.property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
               </button>
+              {% else %}
+              <button type="submit" value="{{theproperty.property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
+              </button>
+              {% endif %}
               <div id="propertyid-filed">{{theproperty.property_id}}</div>
             </form>
             <a href="/apply/{{theproperty.property_id}}" class="btn btn-primary"> Apply today!</a>
