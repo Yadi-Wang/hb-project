@@ -16,15 +16,15 @@
           </li>
           
           <li class="nav-item">
-            <a href="/allproperties" class="nav-link">View all properties</a>
+            <a href="/allproperties" class="nav-link">Recently Viewed</a>
           </li>
 
           <li class="nav-item">
-            <a href="/{{user.user_id}}/myfavorites" class="nav-link">View favorites</a>
+            <a href="/{{user.user_id}}/myfavorites" class="nav-link">Favorites</a>
           </li>
 
           <li class="nav-item">
-            <a href="/{{user.user_id}}/myapplications" class="nav-link">View my applications</a>
+            <a href="/{{user.user_id}}/myapplications" class="nav-link">Applications</a>
           </li>
 
           <li class="nav-item">
@@ -36,33 +36,34 @@
   </nav>
   <h1>Applied!</h1>
 
-  <div class="album py-5 bg-light">
+  <div class="p-5">
     <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="row">
     {% for each_property in applied_properties %}
 
-    <div class="homeContainer" id="showAddress">
-      
-      <div class="card" style="width: 18rem;">
-
-      
-      <div class="d-flex w-100 justify-content-between">
-        <a href="/properties/{{each_property.theproperty.property_id}}" target="_blank">
-          
-          <p id="address-filed">{{each_property.theproperty.address}}</p>
+    <div class="col-lg">
+      <div class="card shadow-lg" style="width: 18rem;">
+        <div class="card-body">
+        <a href="/properties/{{each_property.theproperty.property_id}}" target="_blank">{{each_property.theproperty.address}}</a>
+          <p class="card-text">The card's content.</p> 
           <p id="propertyid-filed">{{each_property.theproperty.property_id}}</p>
-          <img src=" " height="100%" width="100%" style="width: 100%; height:100%">
-        </a>
+          <div class="bd-placeholder-img card-img-top" id="photo-container">
+            <img src="{{each_property.theproperty.photo_path}}"  height="200" width="250" class="img-thumbnail">
+          </div>
+          <form id="add-favorite-form" method="post" action="/add-to-favorites">
+            {% if each_property.theproperty.property_id not in all_liked_properties_id %}
+            <button type="submit" value="{{each_property.theproperty.property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
+            </button>
+            {% else %}
+            <button type="submit" value="{{each_property.theproperty.property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
+            </button>
+            {% endif %}
+            <div id="propertyid-filed">{{each_property.theproperty.property_id}}</div>
+          </form>
+        <!-- <a href="/apply/{{each_property.theproperty.property_id}}" class="btn btn-primary"> Apply today!</a> -->
+          <i class="bi bi-envelope-check-fill">Applied</i>
+        </div>
       </div>
-
-      <div>
-        <a href="/apply/{{each_property.theproperty.property_id}}">
-          <p>!</p>
-        </a>
-      </div>
-
-      <img id="photo-filed" height="200" width="200">
-    </div>
     </div>
     {% endfor %}
     </div>
@@ -71,7 +72,8 @@
 
   <a class="btn btn-primary" href="/myhomepage">Go back to homepage!</a>
 
-  <script src="/static/js/myfavorites.js"></script>
+  <script src="/static/js/like.js"></script>
+  <script src="/static/js/apply.js"></script>
 
 {% endblock %}
 

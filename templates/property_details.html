@@ -19,14 +19,14 @@
         </li>
 
         <li class="nav-item">
-          <a href="/allproperties" class="nav-link">View all properties</a>
+          <a href="/allproperties" class="nav-link">Recently Viewed</a>
         </li>
 
         <li class="nav-item">
-          <a href="/{{user.user_id}}/myfavorites" class="nav-link">View favorites!</a>
+          <a href="/{{user.user_id}}/myfavorites" class="nav-link">Favorites</a>
         </li>
         <li class="nav-item">
-          <a href="/{{user.user_id}}/myapplications" class="nav-link">View my applications!</a>
+          <a href="/{{user.user_id}}/myapplications" class="nav-link">Applications</a>
         </li>
 
         <li class="nav-item">
@@ -40,9 +40,41 @@
 
 <h1>${{ property_details.get('price')}}</h1>
 <a href="/myhomepage"> Back to Home Page! </a><br>
-<a href="/add_to_favorites/{{new_property_id}}"> Add to favorites! </a><br>
+
+<form id="add-favorite-form" method="post" action="/add-to-favorites">
+  {% if new_property_id not in all_liked_properties_id %}
+  <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
+  </button>
+  {% else %}
+  <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
+  </button>
+  {% endif %}
+  <div id="propertyid-filed">{{new_property_id}}</div>
+</form>
 
 <a href="/apply/{{new_property_id}}"> Apply today!</a>
+<button class="open-button" onclick="openForm()">Contact the owner</button>
+
+          <div class="form-popup" id="myForm">
+            <form action="/action_page.php" class="form-container">
+              <h1>Application Form</h1>
+
+              <label for="name"><b>Name</b></label>
+              <input type="text" placeholder="Enter Name" name="name" required>
+              
+              <label for="email"><b>Email</b></label>
+              <input type="text" placeholder="Enter Email" name="email" required>
+
+              <label for="phone"><b>Phone</b></label>
+              <input type="phone" placeholder="Enter phone number" name="phone" required>
+
+              <label for="date"><b>Move-in Time</b></label>
+              <input type="date" placeholder="Select A date" name="date" required>
+
+              <button type="submit" class="btn" onclick="submitForm()">Submit</button>
+              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+          </div>
 <p>
   id:{{new_property_id}}
   {{ address_details.get('line')}},<br>
@@ -152,7 +184,8 @@ Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEqKcxHpYcXy26vXDUFySKYx0RqcOevmc&callback=initMap">
 </script>
 
-
+<script src="static/js/like.js"> </script>
+<script src="/static/js/apply.js"></script>
 
 
 {% endblock %}

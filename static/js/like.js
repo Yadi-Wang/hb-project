@@ -36,6 +36,7 @@ likeButton.forEach(function (likeButton){
             likeButton.className = "btn btn-primary bi bi-heart";
         };
         alert(responseJson.property);
+        location.reload();
         });
     });
 });

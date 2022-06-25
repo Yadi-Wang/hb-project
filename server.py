@@ -54,9 +54,16 @@ def show_my_application(user_id):
     
     applied_properties = crud.get_applications_by_user(user_id)
     logged_in_email = session.get("user_email")
+
     user = crud.get_user_by_email(logged_in_email)
+    all_liked_properties = crud.get_likes_by_user(user_id)
+
+    all_liked_properties_id = []
+    for each_liked_property in all_liked_properties:
+        all_liked_properties_id.append(each_liked_property.property_id)
+
     
-    return render_template("myapplications.html", applied_properties=applied_properties, user=user)
+    return render_template("myapplications.html", applied_properties=applied_properties, user=user, all_liked_properties_id=all_liked_properties_id)
     
 
 # @app.route('/add-to-favorites', methods=["POST"])
@@ -138,6 +145,19 @@ def add_to_favorites():
 
 
 @app.route('/apply/<property_id>')
+def show_application_form(property_id):
+    logged_in_email = session.get("user_email")
+    if logged_in_email is None:
+        flash("You must log in to submit an application.")
+    
+    else:
+        user = crud.get_user_by_email(logged_in_email)
+        user_id = user.user_id
+    
+        return render_template("application-form.html", property_id=property_id, user=user)
+
+
+@app.route('/apply/<property_id>/submit')
 def apply(property_id):
     """Submit an application"""
     logged_in_email = session.get("user_email")
@@ -231,6 +251,12 @@ def show_property(property_id):
     data = crud.request_details_by_property_id(property_id)
     property_details = data["properties"][0]
     returned_id = property_details["property_id"]
+        
+    all_liked_properties = crud.get_likes_by_user(user.user_id)
+
+    all_liked_properties_id = []
+    for each_liked_property in all_liked_properties:
+        all_liked_properties_id.append(each_liked_property.property_id)
     
     if returned_id.isnumeric():
         new_property_id = returned_id
@@ -242,7 +268,7 @@ def show_property(property_id):
     photos = property_details['photos']
     schools = property_details['schools']
     
-    return render_template("property_details.html", user = user, new_property_id = new_property_id, property_details = property_details, address_details = address_details, photos = photos, schools = schools)
+    return render_template("property_details.html", user = user, new_property_id = new_property_id, property_details = property_details, address_details = address_details, photos = photos, schools = schools, all_liked_properties_id=all_liked_properties_id)
 
 
 @app.route("/users")
