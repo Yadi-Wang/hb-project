@@ -7,8 +7,9 @@
 {% block body %}
 
 <nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
-  <div class="container">
-    <a href="" class="navbar-brand">Navigation</a>
+  
+    <a href="" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,145 +36,184 @@
 
       </ul>
     </div>
-  </div>
 </nav>
 
-<h1>${{ property_details.get('price')}}</h1>
-<a href="/myhomepage"> Back to Home Page! </a><br>
 
-<form id="add-favorite-form" method="post" action="/add-to-favorites">
-  {% if new_property_id not in all_liked_properties_id %}
-  <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
-  </button>
-  {% else %}
-  <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
-  </button>
-  {% endif %}
-  <div id="propertyid-filed">{{new_property_id}}</div>
-</form>
-
-<a href="/apply/{{new_property_id}}"> Apply today!</a>
-<button class="open-button" onclick="openForm()">Contact the owner</button>
-
-          <div class="form-popup" id="myForm">
-            <form action="/action_page.php" class="form-container">
-              <h1>Application Form</h1>
-
-              <label for="name"><b>Name</b></label>
-              <input type="text" placeholder="Enter Name" name="name" required>
-              
-              <label for="email"><b>Email</b></label>
-              <input type="text" placeholder="Enter Email" name="email" required>
-
-              <label for="phone"><b>Phone</b></label>
-              <input type="phone" placeholder="Enter phone number" name="phone" required>
-
-              <label for="date"><b>Move-in Time</b></label>
-              <input type="date" placeholder="Select A date" name="date" required>
-
-              <button type="submit" class="btn" onclick="submitForm()">Submit</button>
-              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-            </form>
-          </div>
-<p>
-  id:{{new_property_id}}
-  {{ address_details.get('line')}},<br>
-  {{ address_details.city}}
-  {{ address_details.state_code}}
-  <div id="zip">{{ address_details.postal_code}}</div><br>
-  <div id="lat">{{ address_details.get('lat')}}</div>
-  <div id="lon">{{ address_details.get('lon')}}</div><br>
-  {{ property_details.get('prop_type')}} <br>
-  {{ property_details.get('beds')}} Beds<br>
-
-  
-  {{ property_details.get('baths_full')}} Baths<br>
-  
-
-  {% if 'building_size' in 'property_details' %}
-  {{ property_details.building_size.get('size')}} sqft<br>
-  {% endif %}
-
-</p>
-<h1>See on the map!</h1>
-<div id="map"></div>
-
-
-
-<h1>Key Feature!</h1>
-Status {{ property_details.get('prop_status')}} <br>
-
-{% if 'lot_size' in 'property_details' %}
-Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
-{% endif %}
-
-<h1>See below!</h1>
-
-{% if property_details.description %}
-  <p>{{property_details.description}}</p>
-{% endif %}
-
-<p>more details coming soon!</p>
-
-
-<h1>Photos</h1>
-<div class="gallery">
-  <ul>
-  {% for photo in photos %}
-    <li><img class="images" src= {{photo.href}}/></li>
-  {% endfor %}
-  </ul>
-</div>
-
-<h1>School information</h1>
-<div class="school">
-  <ul>
-  {% for school in schools %}
-    <li>{{school.get('name')}}, {{school.ratings.get('great_schools_rating')}}</li>
-  {% endfor %}
-  </ul>
-</div>
-
-<h1>Point of Interests</h1>
-<div id="interests">
-  <ul>
-
-    <div>
-      <li>Restaurants</li>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Distance</th>
-          </tr>
-        </thead>
-        <tbody id="restaurants">
-          <!--table populate the JS file-->
-        </tbody>
-      </table>
-      <p id="restaurants"></p>
-      <script src="/static/js/nearby_restaurants.js"></script>
-    </div>
-    <div>
-      <li>Trails</li>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>City,State</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody id="outdoors">
-          <!--table populate the JS file-->
-        </tbody>
-      </table>
-      <p id="restaurants"></p>
-      <script src="/static/js/nearby_trails.js"></script>
-    </div>
+<!-- img section -->
+<div class="container">
+  <section id="about" class="about-section-padding">
     
-  </ul>
+      <div class="row">
+        <div class="col-lg-7 col-md-12 col-12">
+          <div class="about-img">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+              <div class="carousel-inner">
+              
+                <div class="carousel-item active">
+                  <img src="{{photos[1].href}}" class="d-block w-100" alt="...">
+                </div>
+              {% for photo in photos %}
+                <div class="carousel-item">
+                  <img src="{{photo.href}}" class="d-block w-100" alt="...">
+                </div>
+              {% endfor %}
+              </div>
+              
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>      
+            </div>      
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-12 col-12 ps-lg-5 mt-md-5">
+          <div class="about-details">
+            
+            <form id="add-favorite-form" method="post" action="/add-to-favorites">
+              {% if new_property_id not in all_liked_properties_id %}
+              <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
+              </button>
+              {% else %}
+              <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
+              </button>
+              {% endif %}
+              <div id="propertyid-filed">{{new_property_id}}</div>
+            </form>
+
+            <a href="/apply/{{new_property_id}}"> Apply today!</a>
+            <button class="open-button" onclick="openForm()">Contact the owner</button>
+
+            <div class="form-popup" id="myForm">
+              <form action="/action_page.php" class="form-container">
+                <h1>Application Form</h1>
+
+                <label for="name"><b>Name</b></label>
+                <input type="text" placeholder="Enter Name" name="name" required>
+                
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+
+                <label for="phone"><b>Phone</b></label>
+                <input type="phone" placeholder="Enter phone number" name="phone" required>
+
+                <label for="date"><b>Move-in Time</b></label>
+                <input type="date" placeholder="Select A date" name="date" required>
+
+                <button type="submit" class="btn" onclick="submitForm()">Submit</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+              </form>
+            </div>
+
+            <p>
+              id:{{new_property_id}}
+              <div class="homeAddress">
+               <h5 class="streetAddress">{{address_details.get('line')}}</h5> 
+               <h5 class="cityAndState">{{ address_details.city}}
+                {{ address_details.state_code}}</h5>
+              <span id="zip">{{ address_details.postal_code}}</span>
+              </div>
+
+              <div id="lat">{{ address_details.get('lat')}}</div>
+              <div id="lon">{{ address_details.get('lon')}}</div><br>
+
+              <div class="home-main-blocks">
+                <div class="home-price-section">${{ property_details.get('price')}}</div>
+                <div class="home-type-section">
+                  <div class="value">{{ property_details.get('prop_type')}}</div> 
+                </div>   
+                <div class="home-bed-section">
+                  <div class="value">{{ property_details.get('beds')}}</div> 
+                  <span class="label"> Beds</span>
+                </div>
+                <div class="home-bath-section">
+                  <div class="value">{{property_details.get('baths_full')}}</div> 
+                  <span class="label"> Baths</span> 
+                </div>
+
+              {% if 'lot_size' in 'property_details' %}
+              Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
+              {% endif %}
+            
+              {% if 'building_size' in 'property_details' %}
+              {{ property_details.building_size.get('size')}} sqft<br>
+              {% endif %}
+              </div>
+            </p>
+        </div>
+      </div>
+        
+        <div class="about-text">
+          Status {{ property_details.get('prop_status')}} <br>
+            <h1>See below!</h1>
+          
+          {% if property_details.description %}
+            <p>{{property_details.description}}</p>
+          {% endif %}
+          
+          <p>more details coming soon!</p>
+        </div>
+    
+  </section>
+  
+  <div class="container">
+    <h1>See on the map!</h1>
+    <div id="map"></div>
+  </div>
+
+    <h1>School information</h1>
+    <div class="school">
+      <ul>
+      {% for school in schools %}
+        <li>{{school.get('name')}}, {{school.ratings.get('great_schools_rating')}}</li>
+      {% endfor %}
+      </ul>
+    </div>
+
+  <h1>Point of Interests</h1>
+    <div id="interests">
+      <ul>
+        <div>
+          <li>Restaurants</li>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Distance</th>
+              </tr>
+            </thead>
+            <tbody id="restaurants">
+              <!--table populate the JS file-->
+            </tbody>
+          </table>
+          <p id="restaurants"></p>
+          <script src="/static/js/nearby_restaurants.js"></script>
+        </div>
+
+        <div>
+          <li>Trails</li>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>City,State</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody id="outdoors">
+              <!--table populate the JS file-->
+            </tbody>
+          </table>
+          <p id="restaurants"></p>
+          <script src="/static/js/nearby_trails.js"></script>
+        </div>  
+      </ul>
+    </div>
 </div>
 
 

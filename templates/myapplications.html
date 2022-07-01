@@ -4,8 +4,8 @@
 
 {% block body %}
   <nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
-    <div class="container">
-      <a href="" class="navbar-brand">Navigation</a>
+    
+      <a href="" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -32,12 +32,18 @@
           </li>
         </ul>
       </div>
-    </div>
+    
   </nav>
-  <h1>Applied!</h1>
+
+  
+  
 
   <div class="p-5">
     <div class="container">
+      <h3>Your Applications</h3>
+      <br>
+
+
     <div class="row">
     {% for each_property in applied_properties %}
 
@@ -70,7 +76,6 @@
     </div>
   </div>
 
-  <a class="btn btn-primary" href="/myhomepage">Go back to homepage!</a>
 
   <script src="/static/js/like.js"></script>
   <script src="/static/js/apply.js"></script>
