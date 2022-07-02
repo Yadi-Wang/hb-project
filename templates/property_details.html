@@ -40,15 +40,16 @@
 
 
 <!-- img section -->
-<div class="container">
+
   <section id="about" class="about-section-padding">
-    
+    <div class="container">
       <div class="row">
-        <div class="col-lg-7 col-md-12 col-12">
-          <div class="about-img">
+        <div class="d-flex col-xxl-7 col-xl-6">
+          <div class="detail-img">
+
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 
-              <div class="carousel-inner">
+              <div class="carousel-inner img-thumbnail">
               
                 <div class="carousel-item active">
                   <img src="{{photos[1].href}}" class="d-block w-100" alt="...">
@@ -71,24 +72,25 @@
             </div>      
           </div>
         </div>
-        <div class="col-lg-5 col-md-12 col-12 ps-lg-5 mt-md-5">
-          <div class="about-details">
-            
-            <form id="add-favorite-form" method="post" action="/add-to-favorites">
-              {% if new_property_id not in all_liked_properties_id %}
-              <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
-              </button>
-              {% else %}
-              <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
-              </button>
-              {% endif %}
-              <div id="propertyid-filed">{{new_property_id}}</div>
-            </form>
 
-            <a href="/apply/{{new_property_id}}"> Apply today!</a>
-            <button class="open-button" onclick="openForm()">Contact the owner</button>
+        <div class="d-flex col-xxl-5 col-xl-6">
+          <div id="about-details" class="w-100">
+            <div class="row">
+              <form id="add-favorite-form" method="post" action="/add-to-favorites">
+                {% if new_property_id not in all_liked_properties_id %}
+                <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
+                </button>
+                {% else %}
+                <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
+                </button>
+                {% endif %}
+                <div class="hide" id="propertyid-filed">{{new_property_id}}</div>
+              </form>
 
-            <div class="form-popup" id="myForm">
+              <button type="button" onclick="window.location.href = '/apply/{{new_property_id}}';">Contact the Owner</button>
+
+             <!-- <button class="open-button" onclick="openForm()">Contact the owner</button>
+             <div class="form-popup" id="myForm">
               <form action="/action_page.php" class="form-container">
                 <h1>Application Form</h1>
 
@@ -107,84 +109,167 @@
                 <button type="submit" class="btn" onclick="submitForm()">Submit</button>
                 <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
               </form>
-            </div>
+             </div> -->
 
-            <p>
-              id:{{new_property_id}}
-              <div class="homeAddress">
-               <h5 class="streetAddress">{{address_details.get('line')}}</h5> 
-               <h5 class="cityAndState">{{ address_details.city}}
-                {{ address_details.state_code}}</h5>
-              <span id="zip">{{ address_details.postal_code}}</span>
+              <div class="row">
+                <div class="homeAddress">
+                <h4 class="streetAddress">{{address_details.get('line')}},</h4> 
+                <h4 class="cityAndState">{{ address_details.city}}
+                  {{ address_details.state_code}}
+                <span id="zip">{{ address_details.postal_code}}</span></h4>
+                </div>
+              
+
+                <div class="hide">
+                  <div id="lat">{{ address_details.get('lat')}}</div>
+                  <div id="lon">{{ address_details.get('lon')}}</div>
+                </div>
               </div>
 
-              <div id="lat">{{ address_details.get('lat')}}</div>
-              <div id="lon">{{ address_details.get('lon')}}</div><br>
-
-              <div class="home-main-blocks">
+              <div class="row">
                 <div class="home-price-section">${{ property_details.get('price')}}</div>
-                <div class="home-type-section">
-                  <div class="value">{{ property_details.get('prop_type')}}</div> 
-                </div>   
-                <div class="home-bed-section">
-                  <div class="value">{{ property_details.get('beds')}}</div> 
-                  <span class="label"> Beds</span>
-                </div>
-                <div class="home-bath-section">
-                  <div class="value">{{property_details.get('baths_full')}}</div> 
-                  <span class="label"> Baths</span> 
+                <div class="col-sm-6">
+                  <div class="card-sm">
+                    <div class="card-sm-body">
+                      <div class="row">
+                        <div class="mt-0 col">
+                          <div class="value">{{ property_details.get('prop_status')}}</div>
+                        </div>
+                        <div class="col-auto col">
+                          <h3><i class="fa-solid fa-calendar-days"></i></h3>
+                        </div>
+                      </div>
+                      <span class="label"> Status</span>
+                    </div>
+                  </div>
+
+                  <div class="card-sm">
+                    <div class="card-sm-body">
+                      <div class="row">
+                        <div class="mt-0 col">
+                          <div class="value">{{ property_details.get('beds')}}</div>
+                        </div>
+                        <div class="col-auto col">
+                          <h3><i class="fa-solid fa-bed"></i></h3>
+                        </div>
+                      </div>
+                      <span class="label"> Beds</span>
+                    </div>
+                  </div>
+
+                  <div class="card-sm">
+                    <div class="card-sm-body">
+                      <div class="row">
+                        <div class="mt-0 col">
+                          <div class="value">{{ property_details.get('building_size')['size']}}</div>
+                        </div>
+                        <div class="col-auto col">
+                          <h3><i class="fa-solid fa-couch"></i></h3>
+                        </div>
+                      </div>
+                      <span class="label"> Living_area   Sq. Ft.</span>
+                    </div>
+                  </div>
                 </div>
 
-              {% if 'lot_size' in 'property_details' %}
-              Lot Size {{ property_details.lot_size.get('size')}} sqft <br>
-              {% endif %}
-            
-              {% if 'building_size' in 'property_details' %}
-              {{ property_details.building_size.get('size')}} sqft<br>
-              {% endif %}
+                <div class="col-sm-6">                  
+                  <div class="card-sm">
+                    <div class="card-sm-body">
+                      <div class="row">
+                        <div class="mt-0 col">
+                          <div class="value">{{ property_details.get('prop_type')}}</div>
+                        </div>
+                        <div class="col-auto col">
+                          <h3><i class="fa-solid fa-house-chimney-window"></i></h3>
+                        </div>
+                      </div>
+                      <span class="label"> Type</span>
+                    </div>
+                  </div>
+
+                  <div class="card-sm">
+                    <div class="card-sm-body">
+                      <div class="row">
+                        <div class="mt-0 col">
+                          <div class="value">{{property_details.get('baths_full')}}</div>
+                        </div>
+                        <div class="col-auto col">
+                          <h3><i class="fa-solid fa-bath"></i></h3>
+                        </div>
+                      </div>
+                      <span class="label"> Baths</span>
+                    </div>
+                  </div>
+
+                  <div class="card-sm">
+                    <div class="card-sm-body">
+                      <div class="row">
+                        <div class="mt-0 col" style="width: 175px;">
+                          <div class="value"> {{ property_details.get('lot_size')['size']}}</div>
+                        </div>
+                        <div class="col-auto col">
+                          <h3><i class="fa-solid fa-sun-plant-wilt"></i></h3>
+                        </div>
+                      </div>
+                      <span class="label"> Lot_size   Sq. Ft.</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </p>
+            </div>
+          </div>
         </div>
       </div>
-        
-        <div class="about-text">
-          Status {{ property_details.get('prop_status')}} <br>
-            <h1>See below!</h1>
-          
-          {% if property_details.description %}
-            <p>{{property_details.description}}</p>
-          {% endif %}
-          
-          <p>more details coming soon!</p>
-        </div>
-    
+    </div>
   </section>
-  
+          
   <div class="container">
-    <h1>See on the map!</h1>
-    <div id="map"></div>
+    <h1>See below!</h1>
+  
+    {% if property_details.description %}
+      <p>{{property_details.description}}</p>
+    {% endif %}
+    
+    <p>more details coming soon!</p>
   </div>
 
-    <h1>School information</h1>
-    <div class="school">
-      <ul>
-      {% for school in schools %}
-        <li>{{school.get('name')}}, {{school.ratings.get('great_schools_rating')}}</li>
-      {% endfor %}
-      </ul>
-    </div>
+  <div class="container">
+    <h1>See on the map!</h1>
+    <div id="map">
+  </div>
+  
 
-  <h1>Point of Interests</h1>
-    <div id="interests">
-      <ul>
+  <div class="container">
+    <h2><i class="fa-solid fa-graduation-cap"> Schools</i></h2>
+    <table id="school" class="table table-striped">
+      <thead>
+        <tr>
+          <th>School</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for school in schools %}
+          <tr>
+            <td>{{school.get('name')}}</td>
+            <td>{{school.ratings.get('great_schools_rating')}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+
+  <div class="container">
+    <h1>Point of Interests</h1>
         <div>
-          <li>Restaurants</li>
-          <table>
+          <h2><i class="fa-solid fa-utensils"> Restaurants</i></h2>
+          <table class="table table-striped">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Distance</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Distance</th>
               </tr>
             </thead>
             <tbody id="restaurants">
@@ -196,13 +281,13 @@
         </div>
 
         <div>
-          <li>Trails</li>
-          <table>
+          <h2><i class="fa-solid fa-person-hiking"> Trails</i></h2>
+          <table class="table table-striped">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>City,State</th>
-                <th>Description</th>
+                <th scope="col">Name</th>
+                <th scope="col">City,State</th>
+                <th scope="col">Description</th>
               </tr>
             </thead>
             <tbody id="outdoors">
@@ -212,9 +297,7 @@
           <p id="restaurants"></p>
           <script src="/static/js/nearby_trails.js"></script>
         </div>  
-      </ul>
-    </div>
-</div>
+  </div>
 
 
 <script src="/static/js/maps.js"></script>
