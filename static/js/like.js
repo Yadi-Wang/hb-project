@@ -30,10 +30,10 @@ likeButton.forEach(function (likeButton){
         
         if (responseJson.action == "add"){
             console.log("Add");
-            likeButton.className = "btn btn-primary bi bi-heart-fill";
+            likeButton.className = "btn bi bi-heart-fill";
         } else {
             console.log("Delete");
-            likeButton.className = "btn btn-primary bi bi-heart";
+            likeButton.className = "btn bi bi-heart";
         };
         alert(responseJson.property);
         location.reload();

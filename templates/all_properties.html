@@ -3,17 +3,13 @@
 {% block head %}  {% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
-  
-    <a href="" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
+  <nav class="navbar p-3 navbar-expand-lg" style="background-color: #042A2B;">
+    <a href="/myhomepage" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="/myhomepage" class="nav-link">Go back to homepage!</a>
-        </li>
 
         <li class="nav-item">
           <a href="/allproperties" class="nav-link">Recently Viewed</a>
@@ -38,7 +34,7 @@
 
 <div class ="p-5">
   <div class ="container">
-    <h5>Viewed History</h5><br>
+    <h3>Viewed History</h3><br>
     <div class="row">
       
       {% for theproperty in properties %}
@@ -55,15 +51,15 @@
             </div>
             <form id="add-favorite-form" method="post" action="/add-to-favorites">
               {% if theproperty.property_id not in all_liked_properties_id %}
-              <button type="submit" value="{{theproperty.property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
+              <button type="submit" value="{{theproperty.property_id}}" class="btn bi bi-heart" id="like-button">  
               </button>
               {% else %}
-              <button type="submit" value="{{theproperty.property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
+              <button type="submit" value="{{theproperty.property_id}}" class="btn bi bi-heart-fill" id="like-button">  
               </button>
               {% endif %}
               <div id="propertyid-filed">{{theproperty.property_id}}</div>
             </form>
-            <a href="/apply/{{theproperty.property_id}}" class="btn btn-primary"> Apply today!</a>
+            <button type="button" onclick="window.location.href = '/apply/{{theproperty.property_id}}';">Contact the Owner</button>
           </div>
         </div>
         </div>

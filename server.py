@@ -316,7 +316,6 @@ def process_login():
     else:
         # Log in user by storing the user's email in session
         session["user_email"] = user.email
-        flash(f"Welcome back, {user.email}!")
 
     return redirect("/")
 

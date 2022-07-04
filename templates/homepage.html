@@ -1,33 +1,27 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HomeIN-Your future home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-  </head>
+{% extends 'base.html' %}
+{% block title %}The Home of Your Home{% endblock %}
+{% block head %} <link rel="stylesheet" href="/static/css/style.css"> {% endblock %}
 
-<body>
+{% block body %}
+
+
 <div class="banner">
-  <nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
-    
-      <a href="" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
+  <nav class="navbar p-3 navbar-expand-lg" style="background-color: #042A2B;">
+      <a href="/myhomepage" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a href="/allproperties" class="nav-link">Recently Viewed</a>
           </li>
           <li class="nav-item">
-            <a href="/users" class="nav-link">View all users</a>
+            <a href="/users" class="nav-link">View All Users</a>
           </li>
           <li class="nav-item">
-            <a href="/properties" class="nav-link">Search your home</a>
+            <a href="/properties" class="nav-link">Search New Home</a>
           </li>
         </ul>
       </div>
@@ -52,9 +46,7 @@
         <input type="submit">
       </p>
     </form>
-    
-
-    
+      
     <button type="button">Log In</button>
     <form action="/login" method="POST">
       <p>
@@ -72,7 +64,5 @@
   </div>
   
 </div>
+{% endblock %}
 
-
-</body>
-</html>

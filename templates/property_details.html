@@ -6,18 +6,13 @@
 
 {% block body %}
 
-<nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
-  
-    <a href="" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
-    
+  <nav class="navbar p-3 navbar-expand-lg" style="background-color: #042A2B;">
+    <a href="/myhomepage" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="/myhomepage" class="nav-link">Go back to homepage!</a>
-        </li>
 
         <li class="nav-item">
           <a href="/allproperties" class="nav-link">Recently Viewed</a>
@@ -69,153 +64,146 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>      
+            </div>
+            <div class="hide">
+              <div id="lat">{{ address_details.get('lat')}}</div>
+              <div id="lon">{{ address_details.get('lon')}}</div>
             </div>      
           </div>
         </div>
 
         <div class="d-flex col-xxl-5 col-xl-6">
-          <div id="about-details" class="w-100">
-            <div class="row">
-              <form id="add-favorite-form" method="post" action="/add-to-favorites">
-                {% if new_property_id not in all_liked_properties_id %}
-                <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart" id="like-button">  
-                </button>
-                {% else %}
-                <button type="submit" value="{{new_property_id}}" class="btn btn-primary bi bi-heart-fill" id="like-button">  
-                </button>
-                {% endif %}
-                <div class="hide" id="propertyid-filed">{{new_property_id}}</div>
-              </form>
-
-              <button type="button" onclick="window.location.href = '/apply/{{new_property_id}}';">Contact the Owner</button>
-
-             <!-- <button class="open-button" onclick="openForm()">Contact the owner</button>
-             <div class="form-popup" id="myForm">
-              <form action="/action_page.php" class="form-container">
-                <h1>Application Form</h1>
-
-                <label for="name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="name" required>
-                
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
-
-                <label for="phone"><b>Phone</b></label>
-                <input type="phone" placeholder="Enter phone number" name="phone" required>
-
-                <label for="date"><b>Move-in Time</b></label>
-                <input type="date" placeholder="Select A date" name="date" required>
-
-                <button type="submit" class="btn" onclick="submitForm()">Submit</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-              </form>
-             </div> -->
-
+          <div class="about-details">
+            <div class="w-100">
               <div class="row">
-                <div class="homeAddress">
-                <h4 class="streetAddress">{{address_details.get('line')}},</h4> 
-                <h4 class="cityAndState">{{ address_details.city}}
-                  {{ address_details.state_code}}
-                <span id="zip">{{ address_details.postal_code}}</span></h4>
-                </div>
-              
+                  <div class="col-sm-8">
+                    <div class="homeAddress">
+                    <h4 class="streetAddress">{{address_details.get('line')}},</h4> 
+                    <h4 class="cityAndState">{{ address_details.city}},
+                      {{ address_details.state_code}}
+                    <span id="zip">{{ address_details.postal_code}}</span></h4>
+                    </div>
+                  </div>
 
-                <div class="hide">
-                  <div id="lat">{{ address_details.get('lat')}}</div>
-                  <div id="lon">{{ address_details.get('lon')}}</div>
-                </div>
+                  <div class="col-sm-4">
+                    <div class="home-price-section">${{ property_details.get('price')}}</div>
+                    <div class="likeform">
+                      <form id="add-favorite-form" method="post" action="/add-to-favorites">
+                        {% if new_property_id not in all_liked_properties_id %}
+                        <button type="submit" value="{{new_property_id}}" class="btn bi bi-heart" id="like-button">  
+                        </button>
+                        {% else %}
+                        <button type="submit" value="{{new_property_id}}" class="btn bi bi-heart-fill" id="like-button">  
+                        </button>
+                        {% endif %}
+                      </form>  
+                    </div>
+                  </div>
               </div>
 
-              <div class="row">
-                <div class="home-price-section">${{ property_details.get('price')}}</div>
-                <div class="col-sm-6">
-                  <div class="card-sm">
-                    <div class="card-sm-body">
-                      <div class="row">
-                        <div class="mt-0 col">
-                          <div class="value">{{ property_details.get('prop_status')}}</div>
+                <div class="row">                
+                  <div class="col-sm-6">
+                    <div class="card-sm">
+                      <div class="card-sm-body">
+                        <div class="row">
+                          <div class="mt-0 col">
+                            <div class="value">{{ property_details.get('prop_status')}}</div>
+                          </div>
+                          <div class="col-auto col">
+                            <h3><i class="fa-solid fa-calendar-days"></i></h3>
+                          </div>
                         </div>
-                        <div class="col-auto col">
-                          <h3><i class="fa-solid fa-calendar-days"></i></h3>
-                        </div>
+                        <span class="label"> Status</span>
                       </div>
-                      <span class="label"> Status</span>
+                    </div>
+
+                    <div class="card-sm">
+                      <div class="card-sm-body">
+                        <div class="row">
+                          <div class="mt-0 col">
+                            <div class="value">{{ property_details.get('beds')}}</div>
+                          </div>
+                          <div class="col-auto col">
+                            <h3><i class="fa-solid fa-bed"></i></h3>
+                          </div>
+                        </div>
+                        <span class="label"> Beds</span>
+                      </div>
+                    </div>
+
+                    <div class="card-sm">
+                      <div class="card-sm-body">
+                        <div class="row">
+                          <div class="mt-0 col">
+                            {% if "building_size" in property_details %}
+                            <div class="value">{{ property_details.get('building_size')['size']}}</div>
+                            {% else %}
+                            <div class="value"> -- </div>
+                            {% endif %}
+                          </div>
+                          <div class="col-auto col">
+                            <h3><i class="fa-solid fa-couch"></i></h3>
+                          </div>
+                        </div>
+                        <span class="label"> Living_area   Sq. Ft.</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="card-sm">
-                    <div class="card-sm-body">
-                      <div class="row">
-                        <div class="mt-0 col">
-                          <div class="value">{{ property_details.get('beds')}}</div>
+                  <div class="col-sm-6">                  
+                    <div class="card-sm">
+                      <div class="card-sm-body">
+                        <div class="row">
+                          <div class="mt-0 col">
+                            <div class="value">{{ property_details.get('prop_type')}}</div>
+                          </div>
+                          <div class="col-auto col">
+                            <h3><i class="fa-solid fa-house-chimney-window"></i></h3>
+                          </div>
                         </div>
-                        <div class="col-auto col">
-                          <h3><i class="fa-solid fa-bed"></i></h3>
-                        </div>
+                        <span class="label"> Type</span>
                       </div>
-                      <span class="label"> Beds</span>
                     </div>
-                  </div>
 
-                  <div class="card-sm">
-                    <div class="card-sm-body">
-                      <div class="row">
-                        <div class="mt-0 col">
-                          <div class="value">{{ property_details.get('building_size')['size']}}</div>
+                    <div class="card-sm">
+                      <div class="card-sm-body">
+                        <div class="row">
+                          <div class="mt-0 col">
+                            <div class="value">{{property_details.get('baths_full')}}</div>
+                          </div>
+                          <div class="col-auto col">
+                            <h3><i class="fa-solid fa-bath"></i></h3>
+                          </div>
                         </div>
-                        <div class="col-auto col">
-                          <h3><i class="fa-solid fa-couch"></i></h3>
-                        </div>
+                        <span class="label"> Baths</span>
                       </div>
-                      <span class="label"> Living_area   Sq. Ft.</span>
+                    </div>
+
+                    <div class="card-sm">
+                      <div class="card-sm-body">
+                        <div class="row">
+                          <div class="mt-0 col" style="width: 175px;">
+                            {% if "lot_size" in property_details %}
+                            <div class="value"> {{ property_details.get('lot_size')['size']}}</div>
+                            {% else %}
+                            <div class="value"> -- </div>
+                            {% endif %}
+                          </div>
+                          <div class="col-auto col">
+                            <h3><i class="fa-solid fa-sun-plant-wilt"></i></h3>
+                          </div>
+                        </div>
+                        <span class="label"> Lot_size   Sq. Ft.</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-sm-12">
 
-                <div class="col-sm-6">                  
-                  <div class="card-sm">
-                    <div class="card-sm-body">
-                      <div class="row">
-                        <div class="mt-0 col">
-                          <div class="value">{{ property_details.get('prop_type')}}</div>
-                        </div>
-                        <div class="col-auto col">
-                          <h3><i class="fa-solid fa-house-chimney-window"></i></h3>
-                        </div>
-                      </div>
-                      <span class="label"> Type</span>
-                    </div>
-                  </div>
-
-                  <div class="card-sm">
-                    <div class="card-sm-body">
-                      <div class="row">
-                        <div class="mt-0 col">
-                          <div class="value">{{property_details.get('baths_full')}}</div>
-                        </div>
-                        <div class="col-auto col">
-                          <h3><i class="fa-solid fa-bath"></i></h3>
-                        </div>
-                      </div>
-                      <span class="label"> Baths</span>
-                    </div>
-                  </div>
-
-                  <div class="card-sm">
-                    <div class="card-sm-body">
-                      <div class="row">
-                        <div class="mt-0 col" style="width: 175px;">
-                          <div class="value"> {{ property_details.get('lot_size')['size']}}</div>
-                        </div>
-                        <div class="col-auto col">
-                          <h3><i class="fa-solid fa-sun-plant-wilt"></i></h3>
-                        </div>
-                      </div>
-                      <span class="label"> Lot_size   Sq. Ft.</span>
-                    </div>
+                  <button class="large-button" type="button" onclick="window.location.href = '/apply/{{new_property_id}}';">Contact the Owner</button>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -240,7 +228,7 @@
   
 
   <div class="container">
-    <h2><i class="fa-solid fa-graduation-cap"> Schools</i></h2>
+    <h3><i class="fa-solid fa-graduation-cap"></i>Schools</h3>
     <table id="school" class="table table-striped">
       <thead>
         <tr>
@@ -263,7 +251,7 @@
   <div class="container">
     <h1>Point of Interests</h1>
         <div>
-          <h2><i class="fa-solid fa-utensils"> Restaurants</i></h2>
+          <h3><i class="fa-solid fa-utensils"></i> Restaurants</h3>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -281,7 +269,7 @@
         </div>
 
         <div>
-          <h2><i class="fa-solid fa-person-hiking"> Trails</i></h2>
+          <h3><i class="fa-solid fa-person-hiking"></i> Trails</h3>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -307,7 +295,7 @@
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEqKcxHpYcXy26vXDUFySKYx0RqcOevmc&callback=initMap">
 </script>
 
-<script src="static/js/like.js"> </script>
+<script src="/static/js/like.js"> </script>
 <script src="/static/js/apply.js"></script>
 
 
