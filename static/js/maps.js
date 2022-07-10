@@ -1,12 +1,5 @@
 'use strict';
 
-console.log('Hello, my favorite world!');
-
-
-
-console.log('Hello, my favorite map!');
-
-
 
 function initMap() {
   const lat = Number(document.querySelector('#lat').innerText)

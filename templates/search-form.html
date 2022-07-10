@@ -2,7 +2,36 @@
 {% block title %}Find Properties{% endblock %}
 
 {% block body %}
+<nav class="navbar p-3 navbar-expand-lg" style="background-color: #042A2B;">
+  <a href="/myhomepage" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/properties" class="nav-link">Search <i class="bi bi-search"></i></a>
+      </li>
+      
+      <li class="nav-item">
+        <a href="/allproperties" class="nav-link">Recently Viewed</a>
+      </li>
 
+      <li class="nav-item">
+        <a href="/{{user.user_id}}/myfavorites" class="nav-link">Favorites</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/{{user.user_id}}/myapplications" class="nav-link">Applications</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/log_out" class="nav-link">Log out</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
 
 
   <h1>Search for Properties</h1>
@@ -52,7 +81,7 @@
       <input
         id="search-proptype"
         class="form-check-input"
-        type="checkbox"
+        type="radio"
         name="proptype"
         value="single_family">
       <label class="form-label above" for="search-proptype">Single-Family</label>
@@ -62,7 +91,7 @@
       <input
         id="search-proptype"
         class="form-check-input"
-        type="checkbox"
+        type="radio"
         name="proptype"
         value="condo">
       <label class="form-label above" for="search-proptype">Townhouse/Condo</label>
@@ -72,7 +101,7 @@
       <input
         id="search-proptype"
         class="form-check-input"
-        type="checkbox"
+        type="radio"
         name="proptype"
         value="multi_family">
       <label class="form-label above" for="search-proptype">Multi_Family</label>
@@ -86,6 +115,7 @@
         list="search-bath"
         name="min_bath"
         class="form-control"
+        type="text"
       >
       <datalist id="search-bath">
         <option value="0">
@@ -109,6 +139,7 @@
         list="search-bed"
         name="min_bed"
         class="form-control"
+        type="text"
       >
       <datalist id="search-bed">
         <option value="0">
@@ -126,7 +157,7 @@
     </div>
 
     <div class="row">
-      <label class="form-label above" for="search-price">Max Price: $</label>
+      <label class="form-label above" for="search-price">Max Price: $ <br><small>Format: 1234567, no decimal place</small></label>
 
       <input
         id="search-price"
@@ -134,11 +165,11 @@
         type="text"
         name="maxprice"
       >
-      <small>Format: 1234567, no decimal place</small>
+      
     </div>
 
     <div class="row">
-      <label class="form-label above" for="search-sqft">Min Squre Feet: </label>
+      <label class="form-label above" for="search-sqft">Min Squre Feet: <br> <small>Format: 1234567, no decimal place</small></label>
 
       <input
         id="search-sqft"
@@ -146,7 +177,7 @@
         type="text"
         name="sqft_min"
       >
-      <small>Format: 1234567, no decimal place</small>
+      
     </div>
 
     <div class="form-check">
@@ -164,7 +195,7 @@
 
     <div class="row mt-4">
       <div class="col-3">
-        <button type="button" onclick="window.location.href = '/properties/search';">See Homes</button> 
+        <input type="submit" value="See Homes" class="searchform-btn">
       </div>
     </div>
   </div>

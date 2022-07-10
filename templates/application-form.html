@@ -6,18 +6,13 @@
 
 {% block body %}
 
-<nav class="navbar navbar-light p-3 navbar-expand" style="background-color: #e3f2fd;">
-  <div class="container">
-    <a href="" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar p-3 navbar-expand-lg" style="background-color: #042A2B;">
+  <a href="/myhomepage" class="navbar-brand"><img src="/static/img/homeIN-logo.png" class="logo"></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="/myhomepage" class="nav-link">Go back to homepage!</a>
-        </li>
-
         <li class="nav-item">
           <a href="/allproperties" class="nav-link">Recently Viewed</a>
         </li>
@@ -39,32 +34,42 @@
 </nav>
 
 
-<a href="/myhomepage"> Back to Home Page! </a><br>
-
-
-
 <a href="/apply/{{property_id}}"> Apply today!</a>
 
 
-<div id="myForm">
-  <form action="/apply/{{property_id}}/submit" class="form-container">
-    <h1>Application Form</h1>
+<div class="global-container" id="applicationForm">
+  <div class="card application-form">
+    <div class="card-body">
+      <p class="form-title text-center">Application Form</p>
+      <div class="card-text">
+          <form action="/apply/{{property_id}}/submit">
 
-    <label for="name"><b>Name</b></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
-    
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
+          <div class="form-group">
+            <label for="name"><b>Name</b></label>
+            <input class="form-control form-control-sm" type="text" placeholder="Enter Name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email"><b>Email</b></label>
+            <input class="form-control form-control-sm" type="email" placeholder="Enter Email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone"><b>Phone</b></label>
+            <input class="form-control form-control-sm" type="phone" placeholder="Enter phone number" name="phone" required>
+          </div>
 
-    <label for="phone"><b>Phone</b></label>
-    <input type="phone" placeholder="Enter phone number" name="phone" required>
+          <div class="form-group">
+            <label for="date"><b>Move-in Time</b></label>
+            <input class="form-control form-control-sm" type="date" placeholder="Select A date" name="date" required>          
+          </div>
 
-    <label for="date"><b>Move-in Time</b></label>
-    <input type="date" placeholder="Select A date" name="date" required>
-
-    <button type="submit" class="btn">Submit</button>
-    
-  </form>
+          <button type="submit" class="form-btn">Submit</button>
+          
+          </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 

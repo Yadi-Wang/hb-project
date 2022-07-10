@@ -15,54 +15,79 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+            <a href="/properties" class="nav-link">Search <i class="bi bi-search"></i></a>
+          </li>
+          <li class="nav-item">
             <a href="/allproperties" class="nav-link">Recently Viewed</a>
           </li>
           <li class="nav-item">
             <a href="/users" class="nav-link">View All Users</a>
           </li>
-          <li class="nav-item">
-            <a href="/properties" class="nav-link">Search New Home</a>
-          </li>
+
         </ul>
       </div>
   </nav>
 
-  <div class="content">
-    <h1>Welcome!</h1>
-    <p>Subscribe Easy home finding App</p>
 
+    <div class="global-container" id="loginForm">
+      <div class="card login-form">
+        <div class="card-body">
+          <p class="form-title text-center">Log In</p>
+          <div class="card-text">
+            <form action="/login" method="POST" class="form">
+              <div class="form-group">
+                <label for="email"><b>Email</b></label>
+                <input class="form-control form-control-sm" type="email" placeholder="Enter Email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="password"><b>Password</b></label>
+                <input class="form-control form-control-sm" type="password" placeholder="Enter Password" name="password" required>
+              </div>
+
+              <button type="submit" class="form-btn">Sign In</button>
+              <div class="signup"> Don't have an account? <button type="submit" class="create-account-btn" onclick="openForm()">Create One</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="headline" style="font-family:verdana;">Find Your Next Sweet Home</p>
     
-    <button type="button">Create an Account</button>
-    <form action="/users" method="POST" class="form">
-      <p>
-        Email <input type="text" name="email" placeholder="Enter Email Here">
-      </p>
+      <div class="form-popup" id="myForm">
+        <div class="card signup-form">
+          <div class="card-body">
+            <p class="form-title text-center">Sign Up</p>
+            <div class="card-text">
+              <form action="/users" method="POST" class="form">
+                <div class="form-group">
+                  <label for="email"><b>Email</b></label>
+                  <input class="form-control form-control-sm" type="email" placeholder="Enter Email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="password"><b>Password</b></label>
+                  <input class="form-control form-control-sm" type="password" placeholder="Enter Password" name="password" required>
+                </div>
 
-      <p>
-        Password <input type="password" name="password" placeholder="Enter Password Here">
-      </p>
-
-      <p>
-        <input type="submit">
-      </p>
-    </form>
+                <button type="submit" class="form-btn">Create an Account</button>
+                <button class="btn cancel" onclick="closeForm()">cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
       
-    <button type="button">Log In</button>
-    <form action="/login" method="POST">
-      <p>
-        Email <input type="text" name="email" placeholder="Enter Email Here">
-      </p>
-
-      <p>
-        Password <input type="password" name="password" placeholder="Enter Password Here">
-      </p>
-
-      <p>
-        <input type="submit">
-      </p>
-    </form>
   </div>
+
+<script>
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
   
-</div>
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+  </script>
 {% endblock %}
 

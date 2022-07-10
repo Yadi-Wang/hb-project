@@ -109,18 +109,18 @@ def get_property_by_id(property_id):
 def get_properties():
     """Return all properties."""
 
-    return Property.query.all()
+    return Property.query.order_by(Property.property_id.desc()).limit(20)
 
 def get_properties_by_user_id():
     """Return all properties searched by the user."""
 
     return Property.query.filter()
 
-def add_a_property(address, price, date_lis, property_id, photo_path):
+def add_a_property(address, price, date_lis, property_id, photo_path, beds, baths, sqft):
 
     """Add a new property."""
     
-    theproperty = Property(address=address, price=price, date_lis =date_lis, property_id=property_id, photo_path=photo_path)
+    theproperty = Property(address=address, price=price, date_lis =date_lis, property_id=property_id, photo_path=photo_path, beds=beds, baths=baths, sqft=sqft)
 
     return theproperty
 

@@ -212,12 +212,26 @@ def get_properties():
 @app.route('/properties')
 def search_properties():
     """go to search bar for properties"""
-    
-    return render_template("search-form.html")
+    logged_in_email = session.get("user_email")
+    user = crud.get_user_by_email(logged_in_email)
+    if logged_in_email is None:
+        flash("You must log in to search for properties.")
+        return redirect('/')
+    else:
+        return render_template("search-form.html", user=user)
 
 @app.route('/properties/search')
 def show_search_properties():
-    """search for properties"""
+    """Show search results"""
+    logged_in_email = session.get("user_email")
+    
+    user = crud.get_user_by_email(logged_in_email)
+    all_liked_properties = crud.get_likes_by_user(user.user_id)
+
+    all_liked_properties_id = []
+    for each_liked_property in all_liked_properties:
+        all_liked_properties_id.append(each_liked_property.property_id)
+
     search_data = crud.get_search_properties()
     properties_list = search_data["listings"]
 
@@ -227,6 +241,9 @@ def show_search_properties():
         date_lis = displayed_property["last_update"]
         property_id = displayed_property["property_id"]
         photo_path = displayed_property.get("photo", None)
+        beds = displayed_property.get("beds", None)
+        baths = displayed_property.get("baths", None)
+        sqft = displayed_property.get("sqft", None)
         
         theproperty = crud.get_property_by_id(property_id)
 
@@ -234,13 +251,13 @@ def show_search_properties():
             pass
         #check if the property already exit
         else:
-            theproperty = crud.add_a_property(address, price, date_lis, property_id, photo_path)
+            theproperty = crud.add_a_property(address, price, date_lis, property_id, photo_path, beds, baths, sqft)
         
             db.session.add(theproperty)
             db.session.commit()
 
    
-    return render_template("search-results.html", search_results = search_data, properties_list = properties_list)
+    return render_template("search-results.html", search_results = search_data, properties_list = properties_list, user = user, all_liked_properties_id = all_liked_properties_id)
 
 
 @app.route('/properties/<property_id>')
